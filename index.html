@@ -52,19 +52,26 @@
 </head>
 <body>
 
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <nav class="sidebar" id="sidebar">
-        <h3>קטגוריות</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">
+            <h3 style="margin: 0;">קטגוריות</h3>
+            <button onclick="toggleMenu()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">✕</button>
+        </div>
         <ul>
             <li><a onclick="filterCategory('all')">🏠 כל הדגמים</a></li>
-            <li><a onclick="filterCategory('sport')">ספורט</a></li>
-            <li><a onclick="filterCategory('elegant')">אלגנט</a></li>
-            <li><a onclick="filterCategory('kids')">ילדים</a></li>
-            <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
-            <li><a onclick="filterCategory('adults')">מבוגרים</a></li>
+            <li><a onclick="filterCategory('adults')">👨‍👩‍👧 מבוגרים (גברים ונשים)</a></li>
+            <li><a onclick="filterCategory('kids')">👼 ילדים ותינוקות</a></li>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 10px 0;">
+            <li><a onclick="filterCategory('elegant')">👞 אלגנט ושבת</a></li>
+            <li><a onclick="filterCategory('sport')">👟 נעלי ספורט</a></li>
+            <li><a onclick="filterCategory('sandals')">👡 סנדלים וכפכפים</a></li>
+            <li><a onclick="filterCategory('boots')">🥾 מגפיים (דמוי בלנסטון)</a></li>
+            <li><a onclick="filterCategory('hiking')">⛰️ נעלי הרים וטיולים</a></li>
+            <li><a onclick="filterCategory('slippers')">🏠 נעלי בית וגומי</a></li>
         </ul>
     </nav>
-
+    
     <header>
         <a href="index.html" class="logo">נעלי <span>שני</span></a>
         <button class="hamburger" onclick="toggleMenu()">
