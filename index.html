@@ -85,17 +85,17 @@
             <button onclick="toggleMenu()" style="background: none; border: none; color: white; font-size: 1.5rem;">✕</button>
         </div>
         <ul>
-            <li><a onclick="filterCategory('all')">🏠 כל הדגמים</a></li>
-            <li><a onclick="filterCategory('adults')">👨‍👩‍👧 מבוגרים</a></li>
-            <li><a onclick="filterCategory('youth')">👦 נוער</a></li>
-            <li><a onclick="filterCategory('kids')">👼 ילדים</a></li>
-            <li><a onclick="filterCategory('sport')">👟 נעלי ספורט</a></li>
-            <li><a onclick="filterCategory('elegant')">👞 אלגנט ושבת</a></li>
-            <li><a onclick="filterCategory('sandals')">👡 סנדלים</a></li>
-            <li><a onclick="filterCategory('flipflops')">🩴 כפכפים</a></li>
-            <li><a onclick="filterCategory('hiking')">⛰️ נעלי הרים</a></li>
-            <li><a onclick="filterCategory('boots')">🥾 מגפיים</a></li>
-            <li><a onclick="filterCategory('slippers')">🏠 נעלי בית</a></li>
+            <li><a onclick="filterCategory('all')"> כל הדגמים</a></li>
+            <li><a onclick="filterCategory('adults')"> מבוגרים</a></li>
+            <li><a onclick="filterCategory('youth')"> נוער</a></li>
+            <li><a onclick="filterCategory('kids')"> ילדים</a></li>
+            <li><a onclick="filterCategory('sport')"> נעלי ספורט</a></li>
+            <li><a onclick="filterCategory('elegant')"> אלגנט ושבת</a></li>
+            <li><a onclick="filterCategory('sandals')"> סנדלים</a></li>
+            <li><a onclick="filterCategory('flipflops')"> כפכפים</a></li>
+            <li><a onclick="filterCategory('hiking')"> נעלי הרים</a></li>
+            <li><a onclick="filterCategory('boots')"> מגפיים</a></li>
+            <li><a onclick="filterCategory('slippers')"> נעלי בית</a></li>
         </ul>
 
         <div class="opening-hours-sidebar">
@@ -128,7 +128,7 @@
 
     <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="מה אתם מחפשים? (למשל: סנדל, נייק...)" onkeyup="handleSearch()">
+        <input type="text" id="searchInput" class="search-input" placeholder="מה אתם מחפשים?" onkeyup="handleSearch()">
     </div>
 
     <div class="container">
@@ -156,9 +156,9 @@
         function updateOpeningHours() {
             const day = new Date().getDay();
             const statusBox = document.getElementById('todayStatus');
-            if (day === 5) statusBox.innerHTML = '🕒 פתוחים היום (ו\'): 09:30 - 13:30';
-            else if (day === 6) statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
-            else statusBox.innerHTML = '🕒 פתוחים היום: 10:00 - 21:00';
+            if (day === 5) statusBox.innerHTML = ' פתוחים היום (ו\'): 09:30 - 13:30';
+            else if (day === 6) statusBox.innerHTML = ' היום (מוצ"ש): סגור';
+            else statusBox.innerHTML = ' פתוחים היום: 10:00 - 21:00';
         }
 
         function renderProducts(productsToDisplay) {
