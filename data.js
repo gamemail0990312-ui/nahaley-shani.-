@@ -22,16 +22,21 @@ const items = [
         name: "נעלי שבת לילדות", 
         price: "₪50 בלבד", 
         category: "kids", 
+        onSale: true,
         img: "images/18.jpg", 
+        sizes: [22,23,24,25,26,27,28,29,30,31,32,33,34,35],
         desc: "נעליים חגיגיות ונוחות. בואו זריז לפני גמר המלאי." 
     },
     { 
         id: 4, 
-        name: "", 
-        price: "₪50 בלבד", 
-        category: "kids", 
-        img: "images/18.jpg", 
-        desc: "נעליים חגיגיות ונוחות. בואו זריז לפני גמר המלאי." 
+        name: "סנדלי שורש ילדים", 
+        price: "₪220", 
+        oldPrice: "₪250",
+        category: "sandals",
+        onSale: true,
+        img: "images/12.jpg", 
+        sizes: [],
+        desc: "סנדלים נוחות במיוחד עם הדגמים הכי יפים." 
     },
     // הוסף עוד מוצרים כאן לפי אותו מבנה
 ];
