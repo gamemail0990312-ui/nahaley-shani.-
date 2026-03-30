@@ -138,7 +138,7 @@ const items = [
         oldPrice: "", 
         onSale: false, 
         category: ["flipflops"], 
-        img: "images/7.jpg", 
+        img: "images/19.jpg", 
         sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], 
         desc: "כפכים לבית לחופשה בנוחות מקסימלית" 
     },
