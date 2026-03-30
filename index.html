@@ -3,128 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>נעלי שני | שער בנימין - קטלוג 2026</title>
+    <title>נעלי שני | שער בנימין</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark: #121212;
-            --white: #ffffff;
-            --whatsapp: #25D366;
-            --font-size-base: 16px;
-        }
-
-        /* --- נגישות מתקדמת --- */
+        :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; }
+        
+        /* נגישות */
         .high-contrast { background: #000 !important; color: #ffff00 !important; }
         .high-contrast * { background: #000 !important; color: #ffff00 !important; border-color: #ffff00 !important; }
         .readable-font * { font-family: Arial, sans-serif !important; font-weight: bold !important; }
-        .highlight-links a { outline: 3px solid #ff0000 !important; background: yellow !important; color: black !important; }
-        .big-cursor { cursor: crosshair !important; }
+        .highlight-links a { outline: 3px solid red !important; background: yellow !important; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Assistant', sans-serif; transition: 0.3s; }
-        body { background-color: #f8f9fa; color: var(--dark); font-size: var(--font-size-base); overflow-x: hidden; }
+        body { background-color: #f8f9fa; color: var(--dark); overflow-x: hidden; }
 
-        /* --- Header & Navigation --- */
-        header { 
-            background: var(--white); padding: 15px 5%; display: flex; 
-            justify-content: space-between; align-items: center; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; 
-        }
+        /* Header & Burger */
+        header { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); sticky; top: 0; z-index: 1000; }
         .logo { font-size: 2rem; font-weight: 800; text-decoration: none; color: var(--dark); }
         .logo span { color: var(--gold); }
+        .hamburger { background: var(--dark); border: none; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; z-index: 10001; }
+        .hamburger div { width: 25px; height: 3px; background: white; }
 
-        /* --- Hamburger Menu --- */
-        .hamburger {
-            background: var(--dark); border: none; padding: 10px; border-radius: 8px;
-            cursor: pointer; display: flex; flex-direction: column; gap: 5px; z-index: 10001;
-        }
-        .hamburger div { width: 25px; height: 3px; background: white; border-radius: 2px; }
-
-        .sidebar {
-            position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
-            background: var(--dark); color: white; z-index: 10002; padding: 30px;
-            transition: 0.4s ease; box-shadow: -5px 0 15px rgba(0,0,0,0.3);
-        }
+        /* Sidebar */
+        .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: var(--dark); color: white; z-index: 10002; padding: 30px; transition: 0.4s; }
         .sidebar.open { right: 0; }
-        .sidebar ul { list-style: none; margin-top: 50px; }
-        .sidebar ul li { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 8px; }
-        .sidebar ul li a { color: white; text-decoration: none; font-size: 1.1rem; font-weight: 600; }
-        .sidebar ul li a:hover { color: var(--gold); }
-
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 10001; display: none;
-        }
+        .sidebar ul { list-style: none; margin-top: 40px; }
+        .sidebar li { padding: 12px 0; border-bottom: 1px solid #333; }
+        .sidebar a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; }
+        .sidebar a:hover { color: var(--gold); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; display: none; }
         .overlay.active { display: block; }
 
-        /* --- Hero Section --- */
-        .hero { 
-            height: 55vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/brown_sandals.jpg') center/cover; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; 
-        }
-        .hero h1 { font-size: 4rem; margin-bottom: 10px; }
-        .maps-btn {
-            background: #4285F4; color: white; padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; font-weight: 700; margin-top: 20px; display: inline-block;
-        }
+        /* Hero */
+        .hero { height: 50vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/brown_sandals.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+        .maps-btn { background: #4285F4; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; margin-top: 15px; font-weight: 700; }
 
-        /* --- Accessibility Menu --- */
-        .acc-btn-main {
-            position: fixed; top: 140px; right: 20px; z-index: 999;
-            width: 50px; height: 50px; background: #0056b3; color: white;
-            border-radius: 50%; border: none; cursor: pointer; font-size: 24px;
-        }
-        .acc-menu {
-            position: fixed; top: 140px; right: 80px; z-index: 999;
-            background: white; border: 2px solid #0056b3; border-radius: 12px;
-            width: 200px; padding: 15px; display: none; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        .acc-option {
-            width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd;
-            border-radius: 6px; cursor: pointer; font-weight: bold;
-        }
-
-        /* --- Grid --- */
+        /* Grid */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
-        .card img { width: 100%; height: 260px; object-fit: cover; }
+        .card img { width: 100%; height: 250px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
 
-        .whatsapp-float { position: fixed; bottom: 30px; left: 30px; background: var(--whatsapp); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        /* Floating Buttons */
+        .acc-btn-main { position: fixed; top: 120px; right: 20px; z-index: 999; width: 45px; height: 45px; background: #0056b3; color: white; border-radius: 50%; border: none; cursor: pointer; font-size: 20px; }
+        .acc-menu { position: fixed; top: 120px; right: 75px; z-index: 999; background: white; border: 2px solid #0056b3; border-radius: 12px; width: 180px; padding: 10px; display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .acc-option { width: 100%; padding: 8px; margin: 3px 0; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: var(--whatsapp); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; }
 
-        footer { background: var(--dark); color: white; padding: 40px; text-align: center; }
-
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } }
+        footer { background: var(--dark); color: white; padding: 30px; text-align: center; margin-top: 40px; }
     </style>
 </head>
 <body>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <nav class="sidebar" id="sidebar">
-        <h3 style="border-bottom: 1px solid #444; padding-bottom: 10px;">קטגוריות</h3>
+        <h3>קטגוריות</h3>
         <ul>
-            <li><a href="#" onclick="toggleMenu()">ספורט</a></li>
-            <li><a href="#" onclick="toggleMenu()">אלגנט</a></li>
-            <li><a href="#" onclick="toggleMenu()">נעלי הרים</a></li>
-            <li><a href="#" onclick="toggleMenu()">מגפיים</a></li>
-            <li><a href="#" onclick="toggleMenu()">ילדים</a></li>
-            <li><a href="#" onclick="toggleMenu()">נוער</a></li>
-            <li><a href="#" onclick="toggleMenu()">מבוגרים</a></li>
-            <li><a href="#" onclick="toggleMenu()">כפכפים</a></li>
-            <li><a href="#" onclick="toggleMenu()">נעלי בית</a></li>
-            <li><a href="#" onclick="toggleMenu()">סנדלים</a></li>
+            <li><a onclick="filterCategory('all')">🏠 כל הדגמים</a></li>
+            <li><a onclick="filterCategory('sport')">ספורט</a></li>
+            <li><a onclick="filterCategory('elegant')">אלגנט</a></li>
+            <li><a onclick="filterCategory('hiking')">נעלי הרים</a></li>
+            <li><a onclick="filterCategory('boots')">מגפיים</a></li>
+            <li><a onclick="filterCategory('kids')">ילדים</a></li>
+            <li><a onclick="filterCategory('youth')">נוער</a></li>
+            <li><a onclick="filterCategory('adults')">מבוגרים</a></li>
+            <li><a onclick="filterCategory('flipflops')">כפכפים</a></li>
+            <li><a onclick="filterCategory('slippers')">נעלי בית</a></li>
+            <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
         </ul>
     </nav>
 
     <button class="acc-btn-main" onclick="toggleAcc()">♿</button>
     <div class="acc-menu" id="accMenu">
-        <button class="acc-option" onclick="changeFontSize(2)">➕ הגדל טקסט</button>
-        <button class="acc-option" onclick="changeFontSize(-2)">➖ הקטן טקסט</button>
-        <button class="acc-option" onclick="toggleFeature('high-contrast')">🌗 ניגודיות</button>
-        <button class="acc-option" onclick="toggleFeature('highlight-links')">🔗 קישורים</button>
-        <button class="acc-option" onclick="toggleFeature('readable-font')">🔡 גופן קריא</button>
+        <button class="acc-option" onclick="changeFS(2)">➕ הגדל טקסט</button>
+        <button class="acc-option" onclick="changeFS(-2)">➖ הקטן טקסט</button>
+        <button class="acc-option" onclick="toggleF('high-contrast')">🌗 ניגודיות</button>
+        <button class="acc-option" onclick="toggleF('highlight-links')">🔗 קישורים</button>
+        <button class="acc-option" onclick="toggleF('readable-font')">🔡 גופן קריא</button>
         <button class="acc-option" onclick="resetAcc()" style="color:red;">🔄 איפוס</button>
     </div>
 
@@ -135,14 +91,14 @@
     <header>
         <a href="index.html" class="logo">נעלי <span>שני</span></a>
         <button class="hamburger" onclick="toggleMenu()">
-            <div></div><div></div><div></div>
+            <div></div><div style="margin: 5px 0;"></div><div></div>
         </button>
     </header>
 
     <section class="hero">
         <h1>נעלי שני</h1>
         <p>שער בנימין | איכות ונוחות לכל המשפחה</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=31.866111,35.259889" target="_blank" class="maps-btn">📍 נווט אלינו ב-Google Maps</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=31.866111,35.259889" target="_blank" class="maps-btn">📍 נווט אלינו</a>
     </section>
 
     <div class="container">
@@ -150,39 +106,34 @@
     </div>
 
     <footer>
-        <p>נעלי שני | מתחם עליון 103, שער בנימין | 050-3693788</p>
+        <p>נעלי שני | שער בנימין | 050-3693788</p>
         <p>החנות נגישה לנכים וממוקמת במפלס הקרקע.</p>
     </footer>
 
     <script src="data.js"></script>
     <script>
-        // המבורגר
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
         }
 
-        // נגישות
-        let currentFS = 16;
+        let fs = 16;
         function toggleAcc() {
             const m = document.getElementById('accMenu');
             m.style.display = m.style.display === 'block' ? 'none' : 'block';
         }
-        function changeFontSize(d) {
-            currentFS += d;
-            document.documentElement.style.fontSize = currentFS + 'px';
-        }
-        function toggleFeature(c) { document.body.classList.toggle(c); }
+        function changeFS(d) { fs += d; document.documentElement.style.fontSize = fs + 'px'; }
+        function toggleF(c) { document.body.classList.toggle(c); }
         function resetAcc() {
             document.body.classList.remove('high-contrast', 'readable-font', 'highlight-links');
-            currentFS = 16; document.documentElement.style.fontSize = '16px';
+            fs = 16; document.documentElement.style.fontSize = '16px';
         }
 
-        // טעינת מוצרים
-        function loadItems() {
+        function loadProducts(filter = 'all') {
             const grid = document.getElementById('productGrid');
             if (typeof items === 'undefined') return;
-            grid.innerHTML = items.map(p => `
+            const filtered = filter === 'all' ? items : items.filter(i => i.category === filter);
+            grid.innerHTML = filtered.map(p => `
                 <div class="card" onclick="location.href='product.html?id=${p.id}'">
                     <img src="${p.img}" alt="${p.name}" onerror="this.src='images/placeholder.jpg'">
                     <div class="card-body">
@@ -191,8 +142,16 @@
                     </div>
                 </div>
             `).join('');
+            if (filtered.length === 0) grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px;">בקרוב דגמים חדשים בקטגוריה זו!</p>';
         }
-        window.onload = loadItems;
+
+        function filterCategory(cat) {
+            loadProducts(cat);
+            toggleMenu();
+            window.scrollTo({top: 450, behavior: 'smooth'});
+        }
+
+        window.onload = () => loadProducts('all');
     </script>
 </body>
 </html>
