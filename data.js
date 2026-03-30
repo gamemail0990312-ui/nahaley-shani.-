@@ -5,7 +5,7 @@ const items = [
         price: "₪300", 
         category: "elegant", 
         img: "images/16.jpg", 
-        sizes: [24, 25, 26, 27, 28, 29, 30],
+        sizes: [],
         desc: "נעלי אלגנט לגברים מעור לשבתות וחגים." 
     },
     { 
@@ -13,15 +13,16 @@ const items = [
         name: "נעלי ספורט hoka", 
         price: "₪החל מ-490", 
         category: "sport", 
-        img: "images/13.jpg", 
+        img: "images/13.jpg",
+        sizes: [],
         desc: "נעלי ריצה קלות ומעוצבות." 
     },
     { 
         id: 3, 
         name: "נעלי שבת לילדות", 
-        price: "₪120", 
+        price: "₪50 בלבד", 
         category: "kids", 
-        img: "images/kids_shabbat.jpg", 
+        img: "images/.jpg", 
         desc: "נעליים חגיגיות ונוחות." 
     }
     // הוסף עוד מוצרים כאן לפי אותו מבנה
