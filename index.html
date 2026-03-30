@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>נעלי שני | שער בנימין</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Assistant', sans-serif; transition: 0.3s; }
         body { background-color: #f8f9fa; color: var(--dark); overflow-x: hidden; }
+        
+        /* הנגשה בסיסית */
+        body.high-contrast { background: black !important; color: yellow !important; }
+        body.high-contrast .card, body.high-contrast header { background: #222 !important; color: yellow !important; }
+        body.large-text { font-size: 1.2rem; }
 
-        /* Header */
         header { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 2rem; font-weight: 800; text-decoration: none; color: var(--dark); }
         .logo span { color: var(--gold); }
-        .hamburger { background: var(--dark); border: none; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; z-index: 10001; }
-        .hamburger div { width: 25px; height: 3px; background: white; }
+        
+        .hamburger { background: var(--dark); border: none; color: white; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; z-index: 10001; }
 
-        /* Sidebar & Overlay - כאן היה התיקון */
         .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: var(--dark); color: white; z-index: 10002; padding: 30px; transition: 0.4s; }
-        .sidebar.open { right: 0; } /* זה מה שגורם לו להיפתח */
+        .sidebar.open { right: 0; }
         .sidebar ul { list-style: none; margin-top: 40px; }
         .sidebar li { padding: 12px 0; border-bottom: 1px solid #333; }
         .sidebar a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; }
@@ -28,15 +32,19 @@
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; display: none; }
         .overlay.active { display: block; }
 
-        /* Hero */
         .hero { height: 65vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/brown_sandals.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
         .hero h1 { font-size: 4rem; margin-bottom: 5px; }
+        
         .action-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 25px; }
-        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .btn-maps { background: white; color: #4285F4; }
         .btn-wa-main { background: var(--whatsapp); color: white; }
 
-        /* Grid */
+        /* כפתור נגישות */
+        .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: #0044cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; font-size: 1.5rem; }
+        .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 200px; }
+        .accessibility-menu button { display: block; width: 100%; padding: 10px; margin-bottom: 5px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; }
+
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
@@ -44,39 +52,43 @@
         .card-body { padding: 15px; text-align: center; }
         
         .sale-badge { position: absolute; top: 10px; right: 10px; background: #ff0000; color: white; padding: 5px 12px; font-weight: 800; border-radius: 5px; font-size: 0.9rem; z-index: 10; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% {scale: 1;} 50% {scale: 1.05;} 100% {scale: 1;} }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
         .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
 
-        footer { background: var(--dark); color: white; padding: 30px; text-align: center; }
+        footer { background: var(--dark); color: white; padding: 40px; text-align: center; margin-top: 50px; border-top: 3px solid var(--gold); }
     </style>
 </head>
 <body>
 
-   <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="accessibility-btn" onclick="toggleAccessibilityMenu()"><i class="fa-solid fa-wheelchair"></i></div>
+    <div class="accessibility-menu" id="accMenu">
+        <button onclick="changeFontSize()">הגדלת טקסט</button>
+        <button onclick="toggleContrast()">ניגודיות גבוהה</button>
+        <button onclick="toggleAccessibilityMenu()">סגור ✕</button>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <nav class="sidebar" id="sidebar">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px;">
             <h3 style="margin: 0;">קטגוריות</h3>
-            <button onclick="toggleMenu()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">✕</button>
+            <button onclick="toggleMenu()" style="background: none; border: none; color: white; font-size: 1.5rem;">✕</button>
         </div>
         <ul>
             <li><a onclick="filterCategory('all')">🏠 כל הדגמים</a></li>
-            <li><a onclick="filterCategory('adults')">👨‍👩‍👧 מבוגרים (גברים ונשים)</a></li>
-            <li><a onclick="filterCategory('kids')">👼 ילדים ותינוקות</a></li>
-            <hr style="border: 0; border-top: 1px solid #333; margin: 10px 0;">
+            <li><a onclick="filterCategory('adults')">👨‍👩‍👧 מבוגרים</a></li>
+            <li><a onclick="filterCategory('kids')">👼 ילדים</a></li>
             <li><a onclick="filterCategory('elegant')">👞 אלגנט ושבת</a></li>
             <li><a onclick="filterCategory('sport')">👟 נעלי ספורט</a></li>
-            <li><a onclick="filterCategory('sandals')">👡 סנדלים וכפכפים</a></li>
-            <li><a onclick="filterCategory('boots')">🥾 מגפיים (דמוי בלנסטון)</a></li>
-            <li><a onclick="filterCategory('hiking')">⛰️ נעלי הרים וטיולים</a></li>
-            <li><a onclick="filterCategory('slippers')">🏠 נעלי בית וגומי</a></li>
+            <li><a onclick="filterCategory('sandals')">👡 סנדלים</a></li>
+            <li><a onclick="filterCategory('boots')">🥾 מגפיים</a></li>
+            <li><a onclick="filterCategory('hiking')">⛰️ טיולים</a></li>
+            <li><a onclick="filterCategory('slippers')">🏠 נעלי בית</a></li>
         </ul>
     </nav>
     
     <header>
         <a href="index.html" class="logo">נעלי <span>שני</span></a>
-        <button class="hamburger" onclick="toggleMenu()">
-            <div></div><div style="margin: 5px 0;"></div><div></div>
-        </button>
+        <button class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     </header>
 
     <section class="hero">
@@ -84,12 +96,10 @@
         <p>שער בנימין | איכות ונוחות לכל המשפחה</p>
         <div class="action-container">
             <a href="https://www.google.com/maps?q=נעלי+שני+שער+בנימין" target="_blank" class="action-btn btn-maps">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" width="22">
-                נווטו אלינו
+                <i class="fa-solid fa-location-dot"></i> נווטו אלינו
             </a>
-            <a href="https://wa.me/972503693788?text=שלום, יש לי שאלה לגבי..." target="_blank" class="action-btn btn-wa-main">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22">
-                לשאלות בפרטי לחצו כאן
+            <a href="https://wa.me/972503693788" target="_blank" class="action-btn btn-wa-main">
+                <i class="fa-brands fa-whatsapp"></i> שירות בוואטסאפ
             </a>
         </div>
     </section>
@@ -98,30 +108,33 @@
         <div class="product-grid" id="productGrid"></div>
     </div>
 
+    <footer>
+        <p>נעלי שני - שער בנימין | מתחם עליון</p>
+        <p style="margin-top:10px; font-size:0.8rem; color:#888;">מפתח האתר: <b>gamemail0990312</b></p>
+    </footer>
+
     <script src="data.js"></script>
     <script>
-        // פונקציית פתיחה וסגירה של התפריט
         function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
         }
 
-        // טעינת מוצרים עם תמיכה בריבוי קטגוריות (Array)
+        // פונקציות נגישות
+        function toggleAccessibilityMenu() {
+            const menu = document.getElementById('accMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+        function changeFontSize() { document.body.classList.toggle('large-text'); }
+        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
+
         function loadProducts(filter = 'all') {
             const grid = document.getElementById('productGrid');
             if (typeof items === 'undefined') return;
 
-            const filtered = filter === 'all' 
-                ? items 
-                : items.filter(i => {
-                    // בדיקה אם הקטגוריה היא רשימה ומכילה את הפילטר
-                    if (Array.isArray(i.category)) {
-                        return i.category.includes(filter);
-                    }
-                    return i.category === filter;
-                });
+            const filtered = filter === 'all' ? items : items.filter(i => {
+                return Array.isArray(i.category) ? i.category.includes(filter) : i.category === filter;
+            });
 
             grid.innerHTML = filtered.map(p => {
                 const saleHtml = p.onSale ? `<div class="sale-badge">מבצע!</div>` : '';
@@ -143,7 +156,7 @@
 
         function filterCategory(cat) {
             loadProducts(cat);
-            toggleMenu(); // סוגר את התפריט אחרי לחיצה
+            toggleMenu();
             window.scrollTo({top: 500, behavior: 'smooth'});
         }
 
