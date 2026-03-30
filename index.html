@@ -8,11 +8,6 @@
     <style>
         :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; }
         
-        /* נגישות */
-        .high-contrast { background: #000 !important; color: #ffff00 !important; }
-        .high-contrast * { background: #000 !important; color: #ffff00 !important; border-color: #ffff00 !important; }
-        .readable-font * { font-family: Arial, sans-serif !important; font-weight: bold !important; }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Assistant', sans-serif; transition: 0.3s; }
         body { background-color: #f8f9fa; color: var(--dark); overflow-x: hidden; }
 
@@ -23,41 +18,32 @@
         .hamburger { background: var(--dark); border: none; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; gap: 5px; z-index: 10001; }
         .hamburger div { width: 25px; height: 3px; background: white; }
 
-        /* Sidebar & Overlay */
+        /* Sidebar & Overlay - כאן היה התיקון */
         .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: var(--dark); color: white; z-index: 10002; padding: 30px; transition: 0.4s; }
-        .sidebar.open { right: 0; }
+        .sidebar.open { right: 0; } /* זה מה שגורם לו להיפתח */
         .sidebar ul { list-style: none; margin-top: 40px; }
         .sidebar li { padding: 12px 0; border-bottom: 1px solid #333; }
         .sidebar a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; }
+        
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; display: none; }
         .overlay.active { display: block; }
 
-        /* Hero Section & Action Buttons */
+        /* Hero */
         .hero { height: 65vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/brown_sandals.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
         .hero h1 { font-size: 4rem; margin-bottom: 5px; }
-        
         .action-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 25px; }
-        .action-btn { 
-            display: flex; align-items: center; gap: 10px; padding: 12px 25px; 
-            border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.1rem; 
-            transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .btn-maps { background: white; color: #4285F4; }
         .btn-wa-main { background: var(--whatsapp); color: white; }
-        .action-btn:hover { transform: translateY(-3px); }
 
-        /* Product Cards & Sale Badge */
+        /* Grid */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
         .card img { width: 100%; height: 250px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
         
-        .sale-badge { 
-            position: absolute; top: 10px; right: 10px; background: #ff0000; color: white; 
-            padding: 5px 12px; font-weight: 800; border-radius: 5px; font-size: 0.9rem; z-index: 10;
-            animation: pulse 2s infinite;
-        }
+        .sale-badge { position: absolute; top: 10px; right: 10px; background: #ff0000; color: white; padding: 5px 12px; font-weight: 800; border-radius: 5px; font-size: 0.9rem; z-index: 10; animation: pulse 2s infinite; }
         @keyframes pulse { 0% {scale: 1;} 50% {scale: 1.05;} 100% {scale: 1;} }
         .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
 
@@ -75,6 +61,7 @@
             <li><a onclick="filterCategory('elegant')">אלגנט</a></li>
             <li><a onclick="filterCategory('kids')">ילדים</a></li>
             <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
+            <li><a onclick="filterCategory('adults')">מבוגרים</a></li>
         </ul>
     </nav>
 
@@ -88,9 +75,8 @@
     <section class="hero">
         <h1>נעלי שני</h1>
         <p>שער בנימין | איכות ונוחות לכל המשפחה</p>
-        
         <div class="action-container">
-            <a href="https://www.google.com/maps/search/?api=1&query=31.866111,35.259889" target="_blank" class="action-btn btn-maps">
+            <a href="https://www.google.com/maps?q=נעלי+שני+שער+בנימין" target="_blank" class="action-btn btn-maps">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" width="22">
                 נווטו אלינו
             </a>
@@ -107,14 +93,29 @@
 
     <script src="data.js"></script>
     <script>
+        // פונקציית פתיחה וסגירה של התפריט
         function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('active');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
         }
 
+        // טעינת מוצרים עם תמיכה בריבוי קטגוריות (Array)
         function loadProducts(filter = 'all') {
             const grid = document.getElementById('productGrid');
-            const filtered = filter === 'all' ? items : items.filter(i => i.category === filter);
+            if (typeof items === 'undefined') return;
+
+            const filtered = filter === 'all' 
+                ? items 
+                : items.filter(i => {
+                    // בדיקה אם הקטגוריה היא רשימה ומכילה את הפילטר
+                    if (Array.isArray(i.category)) {
+                        return i.category.includes(filter);
+                    }
+                    return i.category === filter;
+                });
+
             grid.innerHTML = filtered.map(p => {
                 const saleHtml = p.onSale ? `<div class="sale-badge">מבצע!</div>` : '';
                 const priceHtml = p.oldPrice 
@@ -135,7 +136,7 @@
 
         function filterCategory(cat) {
             loadProducts(cat);
-            toggleMenu();
+            toggleMenu(); // סוגר את התפריט אחרי לחיצה
             window.scrollTo({top: 500, behavior: 'smooth'});
         }
 
