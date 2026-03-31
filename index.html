@@ -84,13 +84,21 @@
 </head>
 <body>
 
-    <div class="accessibility-btn" onclick="toggleAccessibilityMenu()"><i class="fa-solid fa-wheelchair"></i></div>
-    <div class="accessibility-menu" id="accMenu">
-        <button onclick="changeFontSize()">הגדלת טקסט</button>
-        <button onclick="toggleContrast()">ניגודיות גבוהה</button>
-        <button onclick="toggleAccessibilityMenu()">סגור ✕</button>
-    </div>
+   <button class="accessibility-btn" 
+        onclick="toggleAccessibilityMenu()" 
+        aria-label="פתח תפריט נגישות" 
+        title="תפריט נגישות">
+    <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+</button>
 
+<div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
+    <h3 id="accTitle" style="font-size: 1rem; margin-bottom: 10px;">אפשרויות נגישות</h3>
+    <button onclick="changeFontSize()" aria-label="הגדל טקסט">הגדלת טקסט</button>
+    <button onclick="toggleContrast()" aria-label="שנה לניגודיות גבוהה">ניגודיות גבוהה</button>
+    <button onclick="location.href='accessibility.html'">הצהרת נגישות</button> 
+    <button onclick="toggleAccessibilityMenu()" aria-label="סגור תפריט">סגור ✕</button>
+</div>
+   
     <div class="nav-modal-overlay" id="navModal" onclick="closeNavMenu()">
         <div class="nav-modal" onclick="event.stopPropagation()">
             <h3>איך תרצו לנווט?</h3>
