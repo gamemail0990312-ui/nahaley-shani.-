@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; --waze: #33CCFF; }
+        :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; --waze: #33CCFF; --gmaps: #4285F4; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Assistant', sans-serif; transition: 0.3s; }
         body { background-color: #f8f9fa; color: var(--dark); overflow-x: hidden; }
         
         /* נגישות */
         body.high-contrast { background: black !important; color: yellow !important; }
         body.high-contrast .card, body.high-contrast header, body.high-contrast .sidebar { background: #222 !important; color: yellow !important; }
-        body.large-text { font-size: 1.2rem; }
+        body.large-text { font-size: 1.25rem; }
 
         header { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 2rem; font-weight: 800; text-decoration: none; color: var(--dark); }
@@ -28,7 +28,7 @@
         .sidebar.open { right: 0; }
         .sidebar h3 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
         .sidebar ul { list-style: none; }
-        .sidebar li { padding: 8px 0; border-bottom: 1px solid #333; }
+        .sidebar li { padding: 10px 0; border-bottom: 1px solid #333; }
         .sidebar a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; font-size: 1.1rem; }
         .sidebar a:hover { color: var(--gold); }
         
@@ -40,23 +40,23 @@
         .overlay.active { display: block; }
 
         /* Hero */
-        .hero { height: 55vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/brown_sandals.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
+        .hero { height: 55vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero_bg.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
         .hero h1 { font-size: 3.5rem; }
         .today-status { background: rgba(0,0,0,0.3); padding: 8px 20px; border-radius: 50px; margin-top: 15px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
         
         .action-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 25px; }
-        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
-        .btn-maps { background: white; color: #4285F4; border: none; }
+        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; border: none; }
+        .btn-maps { background: white; color: var(--gmaps); }
         .btn-wa-main { background: var(--whatsapp); color: white; }
 
         /* חלונית ניווט */
         .nav-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 20000; padding: 20px; }
-        .nav-modal { background: white; width: 100%; max-width: 350px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .nav-modal { background: white; width: 100%; max-width: 350px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: var(--dark); }
         .nav-options { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
         .nav-opt { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
         .nav-opt.waze { background: var(--waze); color: white; }
-        .nav-opt.gmaps { background: #f1f1f1; color: #4285F4; border: 1px solid #ddd; }
-        .close-nav { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; }
+        .nav-opt.gmaps { background: #f1f1f1; color: var(--gmaps); border: 1px solid #ddd; }
+        .close-nav { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
         /* חיפוש */
         .search-wrapper { max-width: 600px; margin: -30px auto 40px; position: relative; padding: 0 20px; z-index: 10; }
@@ -75,43 +75,52 @@
         .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
 
         /* כפתור נגישות */
-        .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: #0044cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; }
-        .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 200px; }
-        .accessibility-menu button { display: block; width: 100%; padding: 10px; margin-bottom: 5px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; border-radius: 5px; }
+        .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: #0044cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; border: none; font-size: 1.4rem; }
+        .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 220px; }
+        .accessibility-menu button { display: block; width: 100%; padding: 12px; margin-bottom: 8px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; border-radius: 5px; text-align: right; color: var(--dark); font-size: 0.95rem; }
+        .accessibility-menu button i { margin-left: 8px; color: #555; }
+        .accessibility-menu button:hover { background: #f0f0f0; }
+
+        /* הצהרת נגישות Modal */
+        #statementModal { overflow-y: auto; max-height: 90vh; }
 
         footer { background: var(--dark); color: white; padding: 40px; text-align: center; margin-top: 50px; border-top: 3px solid var(--gold); }
     </style>
 </head>
 <body>
 
-   <button class="accessibility-btn" 
-        onclick="toggleAccessibilityMenu()" 
-        aria-label="פתח תפריט נגישות" 
-        title="תפריט נגישות">
-    <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
-</button>
+    <button class="accessibility-btn" onclick="toggleAccessibilityMenu()" aria-label="פתח תפריט נגישות" title="תפריט נגישות">
+        <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+    </button>
 
-   <div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
-    <h3 id="accTitle" style="font-size: 1rem; margin-bottom: 10px;">אפשרויות נגישות</h3>
-    <button onclick="changeFontSize()" aria-label="הגדל טקסט">הגדלת טקסט</button>
-    <button onclick="toggleContrast()" aria-label="שנה לניגודיות גבוהה">ניגודיות גבוהה</button>
-    <button onclick="showAccessibilityStatement()" aria-label="הצג הצהרת נגישות">הצהרת נגישות</button> 
-    <button onclick="toggleAccessibilityMenu()" aria-label="סגור תפריט">סגור ✕</button>
-</div>
+    <div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
+        <h3 id="accTitle" style="font-size: 1rem; margin-bottom: 12px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px;">אפשרויות נגישות</h3>
+        <button onclick="changeFontSize()"><i class="fa-solid fa-text-height"></i> הגדלת טקסט</button>
+        <button onclick="toggleContrast()"><i class="fa-solid fa-circle-half-stroke"></i> ניגודיות גבוהה</button>
+        <button onclick="showAccessibilityStatement()"><i class="fa-solid fa-file-shield"></i> הצהרת נגישות</button> 
+        <button onclick="toggleAccessibilityMenu()" style="color: #cc0000; border-color: #cc0000; margin-top: 5px;">סגור תפריט ✕</button>
+    </div>
 
-<div id="statementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:20px; border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.5); z-index:20001; width:90%; max-width:500px; text-align:right;">
-    <h2 style="color:var(--gold); margin-bottom:10px;">הצהרת נגישות - נעלי שני</h2>
-    <p style="font-size:0.9rem; line-height:1.4;">
-        אתר זה הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA. 
-        ביצענו התאמות הכוללות ניווט מקלדת, שינוי ניגודיות והגדלת גופן. 
-        נתקלתם בבעיה? פנו לרכז הנגישות במייל: gamemail0990312@gmail.com.
-    </p>
-    <button onclick="document.getElementById('statementModal').style.display='none'" style="margin-top:15px; width:100%; padding:10px; background:var(--dark); color:white; border:none; border-radius:5px; cursor:pointer;">סגור</button>
-</div>
-    
+    <div id="statementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:25px; border-radius:15px; box-shadow:0 0 30px rgba(0,0,0,0.5); z-index:20001; width:90%; max-width:500px; text-align:right;">
+        <h2 style="color:var(--gold); margin-bottom:15px; border-bottom: 2px solid #eee; padding-bottom: 10px;">הצהרת נגישות - נעלי שני</h2>
+        <p style="font-size:1rem; line-height:1.6;">
+            אנו בנעלי שני מאמינים במתן שירות שוויוני. האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA.
+            <br><br>
+            <b>התאמות שבוצעו:</b>
+            <br>• תמיכה מלאה בניווט מקלדת.
+            <br>• אפשרות לשינוי ניגודיות וגודל טקסט.
+            <br>• תיוג ARIA עבור קוראי מסך.
+            <br><br>
+            במידה ונתקלתם בקושי, נשמח לעזור:
+            <br>מייל: <b>gamemail0990312@gmail.com</b>
+        </p>
+        <button onclick="document.getElementById('statementModal').style.display='none'" style="margin-top:20px; width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:8px; cursor:pointer; font-weight: bold;">סגור</button>
+    </div>
+
     <div class="nav-modal-overlay" id="navModal" onclick="closeNavMenu()">
         <div class="nav-modal" onclick="event.stopPropagation()">
-            <h3>איך תרצו לנווט?</h3>
+            <h3 style="margin-bottom: 10px;">איך תרצו לנווט?</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">שער בנימין | מתחם עליון</p>
             <div class="nav-options">
                 <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze">
                     <i class="fa-brands fa-waze"></i> Waze
@@ -188,7 +197,7 @@
 
     <script src="data.js"></script>
     <script>
-        // פונקציות תפריטים
+        // תפריטים
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
@@ -200,10 +209,17 @@
             const menu = document.getElementById('accMenu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
+
+        function showAccessibilityStatement() {
+            toggleAccessibilityMenu();
+            document.getElementById('statementModal').style.display = 'block';
+        }
+
+        // פונקציות נגישות
         function changeFontSize() { document.body.classList.toggle('large-text'); }
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
 
-        // חישוב שעות פתיחה (קיץ/חורף)
+        // חישוב שעות פתיחה
         function isSummerTime() {
             const now = new Date();
             const year = now.getFullYear();
@@ -220,14 +236,16 @@
             const statusBox = document.getElementById('todayStatus');
             const fridayClosing = isSummerTime() ? "14:00" : "13:00";
 
-            if (day === 5) statusBox.innerHTML = ` פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
-            else if (day === 6) statusBox.innerHTML = ' היום (מוצ"ש): סגור';
-            else statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
+            if (day === 5) statusBox.innerHTML = `🕒 פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+            else if (day === 6) statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
+            else statusBox.innerHTML = '🕒 פתוחים היום: 09:30 - 20:00';
         }
 
         // לוגיקת מוצרים
         function renderProducts(productsToDisplay) {
             const grid = document.getElementById('productGrid');
+            if (!grid) return;
+            
             if (!productsToDisplay || productsToDisplay.length === 0) {
                 grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא נמצאו תוצאות...</p>`;
                 return;
