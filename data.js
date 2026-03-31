@@ -167,3 +167,29 @@ const items = [
 ];
 
 window.items = items;
+// פונקציה לפתיחת הצהרת הנגישות מתוך התפריט
+function showAccessibilityStatement() {
+    // סוגר את תפריט הנגישות הקטן
+    document.getElementById('accMenu').style.display = 'none'; 
+    // פותח את חלונית ההצהרה המורחבת
+    document.getElementById('statementModal').style.display = 'block';
+}
+// פונקציות הניווט (וודא שהן קיימות)
+function openNavMenu() {
+    document.getElementById('navModal').style.display = 'flex';
+}
+
+function closeNavMenu() {
+    document.getElementById('navModal').style.display = 'none';
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        closeNavMenu();
+        const statement = document.getElementById('statementModal');
+        const accMenu = document.getElementById('accMenu');
+        
+        if (statement) statement.style.display = 'none';
+        if (accMenu) accMenu.style.display = 'none';
+    }
+});
