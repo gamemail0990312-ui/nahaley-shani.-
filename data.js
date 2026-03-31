@@ -166,30 +166,54 @@ const items = [
     }
 ];
 
+// הגדרת המוצרים מהקובץ החיצוני
 window.items = items;
+
 // פונקציה לפתיחת הצהרת הנגישות מתוך התפריט
 function showAccessibilityStatement() {
     // סוגר את תפריט הנגישות הקטן
-    document.getElementById('accMenu').style.display = 'none'; 
+    const accMenu = document.getElementById('accMenu');
+    if (accMenu) accMenu.style.display = 'none'; 
+    
     // פותח את חלונית ההצהרה המורחבת
-    document.getElementById('statementModal').style.display = 'block';
+    const statement = document.getElementById('statementModal');
+    if (statement) statement.style.display = 'block';
 }
-// פונקציות הניווט (וודא שהן קיימות)
+
+// פונקציות הניווט (Waze / Google Maps)
 function openNavMenu() {
-    document.getElementById('navModal').style.display = 'flex';
+    const navModal = document.getElementById('navModal');
+    if (navModal) navModal.style.display = 'flex';
 }
 
 function closeNavMenu() {
-    document.getElementById('navModal').style.display = 'none';
+    const navModal = document.getElementById('navModal');
+    if (navModal) navModal.style.display = 'none';
 }
 
+// פונקציית עזר להדגשת קישורים (חדש מתפריט הנגישות)
+function toggleLinks() {
+    document.body.classList.toggle('underline-links');
+}
+
+// מאזין גלובלי למקלדת - סגירת הכל בלחיצה על Escape
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
+        // סגירת חלונית ניווט
         closeNavMenu();
+        
+        // סגירת הצהרת נגישות ותפריט נגישות
         const statement = document.getElementById('statementModal');
         const accMenu = document.getElementById('accMenu');
-        
         if (statement) statement.style.display = 'none';
         if (accMenu) accMenu.style.display = 'none';
+        
+        // סגירת תפריט צדי (Sidebar) אם הוא פתוח
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
     }
 });
