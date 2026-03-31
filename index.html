@@ -91,14 +91,24 @@
     <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
 </button>
 
-<div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
+   <div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
     <h3 id="accTitle" style="font-size: 1rem; margin-bottom: 10px;">אפשרויות נגישות</h3>
     <button onclick="changeFontSize()" aria-label="הגדל טקסט">הגדלת טקסט</button>
     <button onclick="toggleContrast()" aria-label="שנה לניגודיות גבוהה">ניגודיות גבוהה</button>
-    <button onclick="location.href='accessibility.html'">הצהרת נגישות</button> 
+    <button onclick="showAccessibilityStatement()" aria-label="הצג הצהרת נגישות">הצהרת נגישות</button> 
     <button onclick="toggleAccessibilityMenu()" aria-label="סגור תפריט">סגור ✕</button>
 </div>
-   
+
+<div id="statementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:20px; border-radius:15px; box-shadow:0 0 20px rgba(0,0,0,0.5); z-index:20001; width:90%; max-width:500px; text-align:right;">
+    <h2 style="color:var(--gold); margin-bottom:10px;">הצהרת נגישות - נעלי שני</h2>
+    <p style="font-size:0.9rem; line-height:1.4;">
+        אתר זה הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA. 
+        ביצענו התאמות הכוללות ניווט מקלדת, שינוי ניגודיות והגדלת גופן. 
+        נתקלתם בבעיה? פנו לרכז הנגישות במייל: gamemail0990312@gmail.com.
+    </p>
+    <button onclick="document.getElementById('statementModal').style.display='none'" style="margin-top:15px; width:100%; padding:10px; background:var(--dark); color:white; border:none; border-radius:5px; cursor:pointer;">סגור</button>
+</div>
+    
     <div class="nav-modal-overlay" id="navModal" onclick="closeNavMenu()">
         <div class="nav-modal" onclick="event.stopPropagation()">
             <h3>איך תרצו לנווט?</h3>
