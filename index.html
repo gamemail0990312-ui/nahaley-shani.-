@@ -99,8 +99,9 @@
 
         <div class="opening-hours-sidebar">
             <h4><i class="fa-regular fa-clock"></i> שעות פתיחה</h4>
-            <p><span>א' - ה':</span> <span>10:00 - 21:00</span></p>
-            <p><span>ו' וערבי חג:</span> <span>09:30 - 13:30</span></p>
+            <p><span>א' - ה':</span> <span>09:30 - 20:00</span></p>
+            <p><span>שישי וערבי חג:</span> <span id="fridayHoursDesc">09:30 - 14:00</span></p>
+            <p style="font-size: 0.7rem; opacity: 0.6;">(חורף עד 13:00 / קיץ עד 14:00)</p>
             <p><span>מוצ"ש:</span> <span>סגור</span></p>
         </div>
     </nav>
@@ -152,18 +153,38 @@
         function changeFontSize() { document.body.classList.toggle('large-text'); }
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
 
+        // בדיקת שעון קיץ/חורף בישראל
+        function isSummerTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            // שעון קיץ בישראל מתחיל ביום שישי האחרון של מרץ ומסתיים ביום ראשון האחרון של אוקטובר
+            const startSummer = new Date(year, 2, 31);
+            startSummer.setDate(31 - (startSummer.getDay() + 2) % 7);
+            const endSummer = new Date(year, 9, 31);
+            endSummer.setDate(31 - endSummer.getDay());
+            return now >= startSummer && now < endSummer;
+        }
+
         function updateOpeningHours() {
-            const day = new Date().getDay();
+            const now = new Date();
+            const day = now.getDay();
             const statusBox = document.getElementById('todayStatus');
-            if (day === 5) statusBox.innerHTML = ' פתוחים היום (ו\'): 09:30 - 13:30';
-            else if (day === 6) statusBox.innerHTML = ' היום (מוצ"ש): סגור';
-            else statusBox.innerHTML = ' פתוחים היום: 10:00 - 21:00';
+            const isSummer = isSummerTime();
+            const fridayClosing = isSummer ? "14:00" : "13:00";
+
+            if (day === 5) { // שישי
+                statusBox.innerHTML = `🕒 פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+            } else if (day === 6) { // שבת
+                statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
+            } else { // א'-ה'
+                statusBox.innerHTML = '🕒 פתוחים היום: 09:30 - 20:00';
+            }
         }
 
         function renderProducts(productsToDisplay) {
             const grid = document.getElementById('productGrid');
             if (!productsToDisplay || productsToDisplay.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא מצאנו תוצאות... נסו חיפוש אחר? 🔍</p>`;
+                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא נמצאו תוצאות </p>`;
                 return;
             }
 
