@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; }
+        :root { --gold: #d4af37; --dark: #121212; --white: #ffffff; --whatsapp: #25D366; --waze: #33CCFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Assistant', sans-serif; transition: 0.3s; }
         body { background-color: #f8f9fa; color: var(--dark); overflow-x: hidden; }
         
-        /* הנגשה */
+        /* נגישות */
         body.high-contrast { background: black !important; color: yellow !important; }
         body.high-contrast .card, body.high-contrast header, body.high-contrast .sidebar { background: #222 !important; color: yellow !important; }
         body.large-text { font-size: 1.2rem; }
@@ -23,6 +23,7 @@
         
         .hamburger { background: var(--dark); border: none; color: white; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; z-index: 10001; }
 
+        /* תפריט צדי */
         .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: var(--dark); color: white; z-index: 10002; padding: 30px; transition: 0.4s; overflow-y: auto; }
         .sidebar.open { right: 0; }
         .sidebar h3 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
@@ -38,33 +39,45 @@
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; display: none; }
         .overlay.active { display: block; }
 
+        /* Hero */
         .hero { height: 55vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/brown_sandals.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
         .hero h1 { font-size: 3.5rem; }
         .today-status { background: rgba(0,0,0,0.3); padding: 8px 20px; border-radius: 50px; margin-top: 15px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
         
         .action-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 25px; }
-        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .btn-maps { background: white; color: #4285F4; }
+        .action-btn { display: flex; align-items: center; gap: 10px; padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
+        .btn-maps { background: white; color: #4285F4; border: none; }
         .btn-wa-main { background: var(--whatsapp); color: white; }
 
+        /* חלונית ניווט */
+        .nav-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 20000; padding: 20px; }
+        .nav-modal { background: white; width: 100%; max-width: 350px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .nav-options { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
+        .nav-opt { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        .nav-opt.waze { background: var(--waze); color: white; }
+        .nav-opt.gmaps { background: #f1f1f1; color: #4285F4; border: 1px solid #ddd; }
+        .close-nav { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; }
+
+        /* חיפוש */
         .search-wrapper { max-width: 600px; margin: -30px auto 40px; position: relative; padding: 0 20px; z-index: 10; }
         .search-input { width: 100%; padding: 18px 50px 18px 20px; border-radius: 50px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-size: 1.1rem; outline: none; text-align: right; }
         .search-wrapper i { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); color: var(--gold); }
 
-        .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: #0044cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; }
-        .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 200px; }
-        .accessibility-menu button { display: block; width: 100%; padding: 10px; margin-bottom: 5px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; border-radius: 5px; }
-
+        /* מוצרים */
         .container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .card img { width: 100%; height: 250px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
-        
         .sale-badge { position: absolute; top: 10px; right: 10px; background: #ff0000; color: white; padding: 5px 12px; font-weight: 800; border-radius: 5px; font-size: 0.9rem; z-index: 10; animation: pulse 2s infinite; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
         .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
+
+        /* כפתור נגישות */
+        .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: #0044cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; }
+        .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 200px; }
+        .accessibility-menu button { display: block; width: 100%; padding: 10px; margin-bottom: 5px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; border-radius: 5px; }
 
         footer { background: var(--dark); color: white; padding: 40px; text-align: center; margin-top: 50px; border-top: 3px solid var(--gold); }
     </style>
@@ -78,6 +91,21 @@
         <button onclick="toggleAccessibilityMenu()">סגור ✕</button>
     </div>
 
+    <div class="nav-modal-overlay" id="navModal" onclick="closeNavMenu()">
+        <div class="nav-modal" onclick="event.stopPropagation()">
+            <h3>איך תרצו לנווט?</h3>
+            <div class="nav-options">
+                <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze">
+                    <i class="fa-brands fa-waze"></i> Waze
+                </a>
+                <a href="https://www.google.com/maps/search/?api=1&query=נעלי+שני+שער+בנימין" target="_blank" class="nav-opt gmaps">
+                    <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                </a>
+            </div>
+            <button class="close-nav" onclick="closeNavMenu()">ביטול</button>
+        </div>
+    </div>
+
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <nav class="sidebar" id="sidebar">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -85,23 +113,23 @@
             <button onclick="toggleMenu()" style="background: none; border: none; color: white; font-size: 1.5rem;">✕</button>
         </div>
         <ul>
-            <li><a onclick="filterCategory('all')"> כל הדגמים</a></li>
-            <li><a onclick="filterCategory('adults')"> מבוגרים</a></li>
-            <li><a onclick="filterCategory('kids')"> ילדים</a></li>
-            <li><a onclick="filterCategory('sport')"> נעלי ספורט</a></li>
-            <li><a onclick="filterCategory('elegant')"> אלגנט ושבת</a></li>
-            <li><a onclick="filterCategory('sandals')"> סנדלים</a></li>
-            <li><a onclick="filterCategory('flipflops')"> כפכפים</a></li>
-            <li><a onclick="filterCategory('hiking')"> נעלי הרים</a></li>
-            <li><a onclick="filterCategory('boots')"> מגפיים</a></li>
-            <li><a onclick="filterCategory('slippers')"> נעלי בית</a></li>
+            <li><a onclick="filterCategory('all')">כל הדגמים</a></li>
+            <li><a onclick="filterCategory('adults')">מבוגרים</a></li>
+            <li><a onclick="filterCategory('kids')">ילדים</a></li>
+            <li><a onclick="filterCategory('sport')">נעלי ספורט</a></li>
+            <li><a onclick="filterCategory('elegant')">אלגנט ושבת</a></li>
+            <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
+            <li><a onclick="filterCategory('flipflops')">כפכפים</a></li>
+            <li><a onclick="filterCategory('hiking')">נעלי הרים</a></li>
+            <li><a onclick="filterCategory('boots')">מגפיים</a></li>
+            <li><a onclick="filterCategory('slippers')">נעלי בית</a></li>
         </ul>
 
         <div class="opening-hours-sidebar">
             <h4><i class="fa-regular fa-clock"></i> שעות פתיחה</h4>
             <p><span>א' - ה':</span> <span>09:30 - 20:00</span></p>
             <p><span>שישי וערבי חג:</span> <span id="fridayHoursDesc">09:30 - 14:00</span></p>
-            <p style="font-size: 0.7rem; opacity: 0.6;">(חורף עד 13:00 / קיץ עד 14:00)</p>
+            <p style="font-size: 0.7rem; opacity: 0.6; text-align: center;">(חורף עד 13:00 / קיץ עד 14:00)</p>
             <p><span>מוצ"ש:</span> <span>סגור</span></p>
         </div>
     </nav>
@@ -117,9 +145,9 @@
         <div class="today-status" id="todayStatus">טוען שעות...</div>
 
         <div class="action-container">
-            <a href="https://www.google.com/maps?q=נעלי+שני+שער+בנימין" target="_blank" class="action-btn btn-maps">
+            <button onclick="openNavMenu()" class="action-btn btn-maps">
                 <i class="fa-solid fa-location-dot"></i> נווטו אלינו
-            </a>
+            </button>
             <a href="https://wa.me/972503693788" target="_blank" class="action-btn btn-wa-main">
                 <i class="fa-brands fa-whatsapp"></i> שירות בוואטסאפ
             </a>
@@ -142,10 +170,14 @@
 
     <script src="data.js"></script>
     <script>
+        // פונקציות תפריטים
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
         }
+        function openNavMenu() { document.getElementById('navModal').style.display = 'flex'; }
+        function closeNavMenu() { document.getElementById('navModal').style.display = 'none'; }
+        
         function toggleAccessibilityMenu() {
             const menu = document.getElementById('accMenu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
@@ -153,11 +185,10 @@
         function changeFontSize() { document.body.classList.toggle('large-text'); }
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
 
-        // בדיקת שעון קיץ/חורף בישראל
+        // חישוב שעות פתיחה (קיץ/חורף)
         function isSummerTime() {
             const now = new Date();
             const year = now.getFullYear();
-            // שעון קיץ בישראל מתחיל ביום שישי האחרון של מרץ ומסתיים ביום ראשון האחרון של אוקטובר
             const startSummer = new Date(year, 2, 31);
             startSummer.setDate(31 - (startSummer.getDay() + 2) % 7);
             const endSummer = new Date(year, 9, 31);
@@ -169,22 +200,18 @@
             const now = new Date();
             const day = now.getDay();
             const statusBox = document.getElementById('todayStatus');
-            const isSummer = isSummerTime();
-            const fridayClosing = isSummer ? "14:00" : "13:00";
+            const fridayClosing = isSummerTime() ? "14:00" : "13:00";
 
-            if (day === 5) { // שישי
-                statusBox.innerHTML = `🕒 פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
-            } else if (day === 6) { // שבת
-                statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
-            } else { // א'-ה'
-                statusBox.innerHTML = '🕒 פתוחים היום: 09:30 - 20:00';
-            }
+            if (day === 5) statusBox.innerHTML = ` פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+            else if (day === 6) statusBox.innerHTML = ' היום (מוצ"ש): סגור';
+            else statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
         }
 
+        // לוגיקת מוצרים
         function renderProducts(productsToDisplay) {
             const grid = document.getElementById('productGrid');
             if (!productsToDisplay || productsToDisplay.length === 0) {
-                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא נמצאו תוצאות </p>`;
+                grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא נמצאו תוצאות...</p>`;
                 return;
             }
 
