@@ -236,9 +236,9 @@
             const statusBox = document.getElementById('todayStatus');
             const fridayClosing = isSummerTime() ? "14:00" : "13:00";
 
-            if (day === 5) statusBox.innerHTML = `🕒 פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
-            else if (day === 6) statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
-            else statusBox.innerHTML = '🕒 פתוחים היום: 09:30 - 20:00';
+            if (day === 5) statusBox.innerHTML = `פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+            else if (day === 6) statusBox.innerHTML = 'היום (מוצ"ש): סגור';
+            else statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
         }
 
         // לוגיקת מוצרים
