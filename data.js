@@ -56,7 +56,7 @@ const items = [
     },
     { 
         id: 6, 
-        name: "נעלי שבת לבנות כסופות", 
+        name: "נעלי שבת בנות כסופות", 
         price: "₪50", 
         oldPrice: "", 
         onSale: true, 
@@ -155,7 +155,7 @@ const items = [
     },
     { 
         id: 15, 
-        name: "נעלי שבת לבנות לבנות", 
+        name: "נעלי שבת בנות לבנות", 
         price: "₪50", 
         oldPrice: "", 
         onSale: true, 
