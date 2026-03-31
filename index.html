@@ -24,7 +24,6 @@
         
         .hamburger { background: var(--dark); border: none; color: white; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 1.2rem; z-index: 10001; }
 
-        /* תפריט צדי */
         .sidebar { position: fixed; top: 0; right: -300px; width: 280px; height: 100%; background: var(--dark); color: white; z-index: 10002; padding: 30px; transition: 0.4s; overflow-y: auto; }
         .sidebar.open { right: 0; }
         .sidebar h3 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
@@ -32,16 +31,17 @@
         .sidebar li { padding: 10px 0; border-bottom: 1px solid #333; }
         .sidebar a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; font-size: 1.1rem; }
         .sidebar a:hover { color: var(--gold); }
-        
-        .opening-hours-sidebar { margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 0.85rem; }
-        .opening-hours-sidebar h4 { color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .opening-hours-sidebar p { display: flex; justify-content: space-between; margin-bottom: 5px; opacity: 0.8; }
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; display: none; }
         .overlay.active { display: block; }
 
         /* Hero */
-        .hero { height: 55vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero_bg.jpg') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; }
+        .hero { 
+            height: 55vh; 
+            /* וודא שהקובץ images/hero_bg.jpg קיים בתיקייה שלך */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero_bg.jpg') center/cover no-repeat; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 20px; 
+        }
         .hero h1 { font-size: 3.5rem; }
         .today-status { background: rgba(0,0,0,0.3); padding: 8px 20px; border-radius: 50px; margin-top: 15px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
         
@@ -50,7 +50,7 @@
         .btn-maps { background: white; color: var(--accent-blue); }
         .btn-wa-main { background: var(--whatsapp); color: white; }
 
-        /* חלונית ניווט */
+        /* מודאלים */
         .nav-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 20000; padding: 20px; }
         .nav-modal { background: white; width: 100%; max-width: 350px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: var(--dark); }
         .nav-options { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
@@ -59,27 +59,22 @@
         .nav-opt.gmaps { background: #f1f1f1; color: var(--gmaps); border: 1px solid #ddd; }
         .close-nav { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        /* כפתור נגישות משופר */
         .accessibility-btn { position: fixed; bottom: 20px; left: 20px; background: var(--accent-blue); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10000; border: none; font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        
         .accessibility-menu { position: fixed; bottom: 85px; left: 20px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); display: none; z-index: 10000; width: 280px; overflow: hidden; border: 1px solid #eee; }
         .acc-header { background: #f8f9fa; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; border-bottom: 1px solid #eee; }
         .acc-body { padding: 10px; }
         .acc-body button { display: flex; align-items: center; width: 100%; padding: 12px; margin-bottom: 8px; cursor: pointer; border: 1px solid #f0f0f0; background: #fff; font-weight: bold; border-radius: 8px; text-align: right; color: #444; font-size: 0.95rem; }
         .acc-body button i { margin-left: 12px; color: var(--accent-blue); font-size: 1.1rem; width: 20px; }
-        .acc-body button:hover { background: #f0f4ff; border-color: var(--accent-blue); }
 
-        /* חיפוש ומוצרים */
         .search-wrapper { max-width: 600px; margin: -30px auto 40px; position: relative; padding: 0 20px; z-index: 10; }
         .search-input { width: 100%; padding: 18px 50px 18px 20px; border-radius: 50px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-size: 1.1rem; outline: none; text-align: right; }
         .search-wrapper i { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); color: var(--gold); }
+        
         .container { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
-        .card:hover { transform: translateY(-5px); }
         .card img { width: 100%; height: 250px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
-        .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
 
         footer { background: var(--dark); color: white; padding: 40px; text-align: center; border-top: 3px solid var(--gold); }
     </style>
@@ -105,9 +100,7 @@
 
     <div id="statementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:25px; border-radius:15px; box-shadow:0 0 30px rgba(0,0,0,0.5); z-index:20001; width:90%; max-width:500px; text-align:right;">
         <h2 style="color:var(--gold); margin-bottom:15px;">הצהרת נגישות - נעלי שני</h2>
-        <p style="line-height:1.6;">
-            האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA. במידה ונתקלתם בקושי, נשמח לעזור במייל: <b>gamemail0990312@gmail.com</b>
-        </p>
+        <p style="line-height:1.6;">האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA. במידה ונתקלתם בקושי: <b>gamemail0990312@gmail.com</b></p>
         <button onclick="document.getElementById('statementModal').style.display='none'" style="margin-top:20px; width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:8px; cursor:pointer;">סגור</button>
     </div>
 
@@ -115,12 +108,8 @@
         <div class="nav-modal" onclick="event.stopPropagation()">
             <h3 style="margin-bottom: 10px;">איך תרצו לנווט?</h3>
             <div class="nav-options">
-                <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze">
-                    <i class="fa-brands fa-waze"></i> Waze
-                </a>
-                <a href="https://www.google.com/maps/search/?api=1&query=נעלי+שני+שער+בנימין" target="_blank" class="nav-opt gmaps">
-                    <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                </a>
+                <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze"><i class="fa-brands fa-waze"></i> Waze</a>
+                <a href="https://www.google.com/maps?q=שער+בנימין" target="_blank" class="nav-opt gmaps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
             </div>
             <button class="close-nav" onclick="closeNavMenu()">ביטול</button>
         </div>
@@ -168,7 +157,6 @@
 
     <script src="data.js"></script>
     <script>
-        // לוגיקה כללית
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
@@ -191,22 +179,31 @@
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
         function toggleLinks() { document.body.classList.toggle('underline-links'); }
 
-        // סגירת מודאלים ב-Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") {
-                closeNavMenu();
-                const statement = document.getElementById('statementModal');
-                const accMenu = document.getElementById('accMenu');
-                if (statement) statement.style.display = 'none';
-                if (accMenu) accMenu.style.display = 'none';
-                if (document.getElementById('sidebar').classList.contains('open')) toggleMenu();
-            }
-        });
+        // חישוב שעות פתיחה
+        function isSummerTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const startSummer = new Date(year, 2, 31);
+            startSummer.setDate(31 - (startSummer.getDay() + 2) % 7);
+            const endSummer = new Date(year, 9, 31);
+            endSummer.setDate(31 - endSummer.getDay());
+            return now >= startSummer && now < endSummer;
+        }
 
-        // רנדור מוצרים ושעות (פונקציות קיימות)
+        function updateOpeningHours() {
+            const now = new Date();
+            const day = now.getDay(); // 0=Sunday, 5=Friday, 6=Saturday
+            const statusBox = document.getElementById('todayStatus');
+            const fridayClosing = isSummerTime() ? "14:00" : "13:00";
+
+            if (day === 5) statusBox.innerHTML = `🕒 פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+            else if (day === 6) statusBox.innerHTML = '🕒 היום (מוצ"ש): סגור';
+            else statusBox.innerHTML = '🕒 פתוחים היום: 09:30 - 20:00';
+        }
+
         function renderProducts(list) {
             const grid = document.getElementById('productGrid');
-            if(!grid) return;
+            if(!grid || !list) return;
             grid.innerHTML = list.map(p => `
                 <div class="card" onclick="location.href='product.html?id=${p.id}'">
                     <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
@@ -223,9 +220,26 @@
             renderProducts(items.filter(i => i.name.toLowerCase().includes(q)));
         }
 
+        function filterCategory(cat) {
+            const filtered = cat === 'all' ? items : items.filter(i => 
+                Array.isArray(i.category) ? i.category.includes(cat) : i.category === cat
+            );
+            renderProducts(filtered);
+            toggleMenu();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                closeNavMenu();
+                document.getElementById('statementModal').style.display = 'none';
+                document.getElementById('accMenu').style.display = 'none';
+                if (document.getElementById('sidebar').classList.contains('open')) toggleMenu();
+            }
+        });
+
         window.onload = () => {
             if (typeof items !== 'undefined') renderProducts(items);
-            // כאן תוכל להוסיף את פונקציית עדכון השעות שלך
+            updateOpeningHours();
         };
     </script>
 </body>
