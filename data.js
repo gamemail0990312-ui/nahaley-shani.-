@@ -164,18 +164,23 @@ const items = [
         sizes: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], 
         desc: "נעלי שבת חגיגיות לבנות במחיר חיסול - עד גמר המלאי!" 
     }
-];
-
 // הגדרת המוצרים מהקובץ החיצוני
 window.items = items;
 
-// פונקציה לפתיחת הצהרת הנגישות מתוך התפריט
+// --- פונקציות תצוגה וניהול ---
+
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('active');
+}
+
+// פתיחת הצהרת הנגישות מתוך התפריט
 function showAccessibilityStatement() {
-    // סוגר את תפריט הנגישות הקטן
     const accMenu = document.getElementById('accMenu');
     if (accMenu) accMenu.style.display = 'none'; 
     
-    // פותח את חלונית ההצהרה המורחבת
     const statement = document.getElementById('statementModal');
     if (statement) statement.style.display = 'block';
 }
@@ -196,19 +201,42 @@ function toggleLinks() {
     document.body.classList.toggle('underline-links');
 }
 
+// שעות פתיחה דינמיות
+function isSummerTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const startSummer = new Date(year, 2, 31);
+    startSummer.setDate(31 - (startSummer.getDay() + 2) % 7);
+    const endSummer = new Date(year, 9, 31);
+    endSummer.setDate(31 - endSummer.getDay());
+    return now >= startSummer && now < endSummer;
+}
+
+function updateOpeningHours() {
+    const now = new Date();
+    const day = now.getDay();
+    const fridayClosing = isSummerTime() ? "14:00" : "13:00";
+    
+    const friDesc = document.getElementById('friHoursDesc');
+    if (friDesc) friDesc.innerText = `09:30 - ${fridayClosing}`;
+    
+    const statusBox = document.getElementById('todayStatus');
+    if (statusBox) {
+        if (day === 5) statusBox.innerHTML = `פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
+        else if (day === 6) statusBox.innerHTML = 'היום (מוצ"ש): סגור';
+        else statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
+    }
+}
+
 // מאזין גלובלי למקלדת - סגירת הכל בלחיצה על Escape
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
-        // סגירת חלונית ניווט
         closeNavMenu();
-        
-        // סגירת הצהרת נגישות ותפריט נגישות
         const statement = document.getElementById('statementModal');
         const accMenu = document.getElementById('accMenu');
         if (statement) statement.style.display = 'none';
         if (accMenu) accMenu.style.display = 'none';
         
-        // סגירת תפריט צדי (Sidebar) אם הוא פתוח
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         if (sidebar && sidebar.classList.contains('open')) {
@@ -217,3 +245,9 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
+// וודא שפונקציות הליבה זמינות גלובלית
+window.updateOpeningHours = updateOpeningHours;
+window.toggleMenu = toggleMenu;
+window.openNavMenu = openNavMenu;
+window.closeNavMenu = closeNavMenu;
