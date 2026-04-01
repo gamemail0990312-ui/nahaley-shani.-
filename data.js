@@ -1,4 +1,3 @@
-// --- נתוני המוצרים (items) ---
 const items = [
     { 
         id: 1, 
@@ -69,7 +68,7 @@ const items = [
     { 
         id: 7, 
         name: "נעלי ספורט HOKA", 
-        price: "₪490 החל מ-", 
+        price: "₪490החל מ-", 
         oldPrice: "", 
         onSale: false, 
         category: ["sport", "adults"], 
@@ -80,12 +79,12 @@ const items = [
     { 
         id: 8, 
         name: "נעלי הרים מקצועיות", 
-        price: "₪380 החל מ-", 
+        price: "₪380החל מ-", 
         oldPrice: "", 
         onSale: false, 
         category: ["hiking", "adults"], 
         img: "images/1.jpg", 
-        sizes: [40, 41, 42, 43, 44], 
+        sizes: [], 
         desc: "נעלי הרים עמידות ומקצועיות לטיולים בכל תנאי שטח." 
     },
     { 
@@ -134,14 +133,14 @@ const items = [
     },
     { 
         id: 13, 
-        name: "כפכפי אצבע", 
+        name: "כפכפי", 
         price: "₪35", 
         oldPrice: "", 
         onSale: false, 
         category: ["flipflops"], 
         img: "images/19.jpg", 
         sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], 
-        desc: "כפכפים לבית ולחופשה בנוחות מקסימלית." 
+        desc: "כפכים לבית לחופשה בנוחות מקסימלית" 
     },
     { 
         id: 14, 
@@ -149,7 +148,7 @@ const items = [
         price: "₪240", 
         oldPrice: "₪280", 
         onSale: true, 
-        category: ["boots", "kids", "youth"], 
+        category: ["boots", "kids"], 
         img: "images/17.jpg", 
         sizes: [36,37,38,39,40], 
         desc: "מגפיים דמוי בלנסטון מעור חברות פאפאיה ופאמה, איכותיות ועמידות ." 
@@ -167,24 +166,21 @@ const items = [
     }
 ];
 
+// הגדרת המוצרים מהקובץ החיצוני
 window.items = items;
 
-// --- פונקציות תצוגה וניהול ---
-
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (sidebar) sidebar.classList.toggle('open');
-    if (overlay) overlay.classList.toggle('active');
-}
-
+// פונקציה לפתיחת הצהרת הנגישות מתוך התפריט
 function showAccessibilityStatement() {
+    // סוגר את תפריט הנגישות הקטן
     const accMenu = document.getElementById('accMenu');
     if (accMenu) accMenu.style.display = 'none'; 
+    
+    // פותח את חלונית ההצהרה המורחבת
     const statement = document.getElementById('statementModal');
-    if (statement) statement.style.display = 'flex';
+    if (statement) statement.style.display = 'block';
 }
 
+// פונקציות הניווט (Waze / Google Maps)
 function openNavMenu() {
     const navModal = document.getElementById('navModal');
     if (navModal) navModal.style.display = 'flex';
@@ -195,101 +191,29 @@ function closeNavMenu() {
     if (navModal) navModal.style.display = 'none';
 }
 
-function isSummerTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const startSummer = new Date(year, 2, 31);
-    startSummer.setDate(31 - (startSummer.getDay() + 2) % 7);
-    const endSummer = new Date(year, 9, 31);
-    endSummer.setDate(31 - endSummer.getDay());
-    return now >= startSummer && now < endSummer;
+// פונקציית עזר להדגשת קישורים (חדש מתפריט הנגישות)
+function toggleLinks() {
+    document.body.classList.toggle('underline-links');
 }
 
-function updateOpeningHours() {
-    const now = new Date();
-    const day = now.getDay();
-    const dateStr = `${now.getMonth() + 1}-${now.getDate()}`;
-    
-    // ערבי חג 2026
-    const holidayEves = ['4-1', '4-7', '5-21', '9-11', '9-20', '9-25', '10-2']; 
-    
-    const fridayClosing = isSummerTime() ? "14:00" : "13:00";
-    const holidayClosing = "13:30";
-
-    const friDesc = document.getElementById('friHours'); 
-    if (friDesc) friDesc.innerText = `09:30 - ${fridayClosing}`;
-    
-    const statusBox = document.getElementById('todayStatus');
-    if (statusBox) {
-        if (holidayEves.includes(dateStr)) {
-            statusBox.innerHTML = `<span style="color: #ffcc00; font-weight:800;">ערב חג:</span> פתוחים 09:30 - ${holidayClosing}`;
-        } else if (day === 5) {
-            statusBox.innerHTML = `פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
-        } else if (day === 6) {
-            statusBox.innerHTML = 'היום (מוצ"ש): סגור. נתראה בראשון!';
-        } else {
-            statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
-        }
-    }
-}
-
-// לוגיקת רינדור מוצרים
-function renderProducts(list) {
-    const grid = document.getElementById('productGrid');
-    if (!grid) return;
-    if (!list || list.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; opacity:0.6;">לא נמצאו תוצאות...</div>`;
-        return;
-    }
-    grid.innerHTML = list.map(p => `
-        <div class="card" onclick="location.href='product.html?id=${p.id}'">
-            ${p.onSale ? '<div class="sale-badge">במבצע!</div>' : ''}
-            <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
-            <div class="card-body">
-                <h3>${p.name}</h3>
-                <p>${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800;">${p.price}</span>` : `<span style="color:var(--gold); font-weight:800;">${p.price}</span>`}</p>
-            </div>
-        </div>`).join('');
-}
-
-function handleSearch() {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    const filtered = items.filter(p => 
-        p.name.toLowerCase().includes(q) || 
-        (Array.isArray(p.category) ? p.category.some(c => c.toLowerCase().includes(q)) : p.category.toLowerCase().includes(q))
-    );
-    renderProducts(filtered);
-}
-
-function filterCategory(cat) {
-    if(document.getElementById('searchInput')) document.getElementById('searchInput').value = '';
-    const filtered = cat === 'all' ? items : items.filter(i => 
-        Array.isArray(i.category) ? i.category.includes(cat) : i.category === cat
-    );
-    renderProducts(filtered);
-    window.scrollTo({ top: 450, behavior: 'smooth' });
-    if(document.getElementById('sidebar').classList.contains('open')) toggleMenu();
-}
-
+// מאזין גלובלי למקלדת - סגירת הכל בלחיצה על Escape
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
+        // סגירת חלונית ניווט
         closeNavMenu();
+        
+        // סגירת הצהרת נגישות ותפריט נגישות
         const statement = document.getElementById('statementModal');
+        const accMenu = document.getElementById('accMenu');
         if (statement) statement.style.display = 'none';
+        if (accMenu) accMenu.style.display = 'none';
+        
+        // סגירת תפריט צדי (Sidebar) אם הוא פתוח
         const sidebar = document.getElementById('sidebar');
-        if (sidebar && sidebar.classList.contains('open')) toggleMenu();
+        const overlay = document.getElementById('overlay');
+        if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
     }
 });
-
-// אתחול
-window.addEventListener('DOMContentLoaded', () => {
-    updateOpeningHours();
-    renderProducts(items);
-});
-
-// ייצוא
-window.renderProducts = renderProducts;
-window.handleSearch = handleSearch;
-window.filterCategory = filterCategory;
-window.updateOpeningHours = updateOpeningHours;
-window.toggleMenu = toggleMenu;
