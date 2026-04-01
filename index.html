@@ -70,6 +70,13 @@
         .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         .card img { width: 100%; height: 250px; object-fit: cover; }
         .card-body { padding: 15px; text-align: center; }
+        
+        /* צבעים ומידות בכרטיס */
+        .color-selector { display: flex; justify-content: center; gap: 8px; margin: 10px 0; }
+        .color-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; background-size: cover; background-position: center; }
+        .color-dot.active { border-color: var(--gold); transform: scale(1.15); }
+        .size-preview { font-size: 0.8rem; color: #777; margin-top: 5px; }
+        
         .sale-badge { position: absolute; top: 10px; right: 10px; background: #ff0000; color: white; padding: 5px 12px; font-weight: 800; border-radius: 5px; font-size: 0.9rem; z-index: 10; animation: pulse 2s infinite; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
         .old-price { text-decoration: line-through; color: #888; font-size: 0.9rem; margin-left: 5px; }
@@ -79,10 +86,6 @@
         .accessibility-menu { position: fixed; bottom: 80px; left: 20px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); display: none; z-index: 10000; width: 220px; }
         .accessibility-menu button { display: block; width: 100%; padding: 12px; margin-bottom: 8px; cursor: pointer; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold; border-radius: 5px; text-align: right; color: var(--dark); font-size: 0.95rem; }
         .accessibility-menu button i { margin-left: 8px; color: #555; }
-        .accessibility-menu button:hover { background: #f0f0f0; }
-
-        /* הצהרת נגישות Modal */
-        #statementModal { overflow-y: auto; max-height: 90vh; }
 
         footer { background: var(--dark); color: white; padding: 40px; text-align: center; margin-top: 50px; border-top: 3px solid var(--gold); }
     </style>
@@ -93,23 +96,18 @@
         <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
     </button>
 
-    <div class="accessibility-menu" id="accMenu" role="dialog" aria-labelledby="accTitle">
-        <h3 id="accTitle" style="font-size: 1rem; margin-bottom: 12px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px;">אפשרויות נגישות</h3>
+    <div class="accessibility-menu" id="accMenu" role="dialog">
+        <h3 style="font-size: 1rem; margin-bottom: 12px; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px;">אפשרויות נגישות</h3>
         <button onclick="changeFontSize()"><i class="fa-solid fa-text-height"></i> הגדלת טקסט</button>
         <button onclick="toggleContrast()"><i class="fa-solid fa-circle-half-stroke"></i> ניגודיות גבוהה</button>
         <button onclick="showAccessibilityStatement()"><i class="fa-solid fa-file-shield"></i> הצהרת נגישות</button> 
-        <button onclick="toggleAccessibilityMenu()" style="color: #cc0000; border-color: #cc0000; margin-top: 5px;">סגור תפריט ✕</button>
+        <button onclick="toggleAccessibilityMenu()" style="color: #cc0000; border-color: #cc0000; margin-top: 5px;">סגור ✕</button>
     </div>
 
     <div id="statementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; color:black; padding:25px; border-radius:15px; box-shadow:0 0 30px rgba(0,0,0,0.5); z-index:20001; width:90%; max-width:500px; text-align:right;">
         <h2 style="color:var(--gold); margin-bottom:15px; border-bottom: 2px solid #eee; padding-bottom: 10px;">הצהרת נגישות - נעלי שני</h2>
         <p style="font-size:1rem; line-height:1.6;">
             אנו בנעלי שני מאמינים במתן שירות שוויוני. האתר הונגש בהתאם לתקן הישראלי ת"י 5568 ברמה AA.
-            <br><br>
-            <b>התאמות שבוצעו:</b>
-            <br>• תמיכה מלאה בניווט מקלדת.
-            <br>• אפשרות לשינוי ניגודיות וגודל טקסט.
-            <br>• תיוג ARIA עבור קוראי מסך.
             <br><br>
             במידה ונתקלתם בקושי, נשמח לעזור:
             <br>מייל: <b>gamemail0990312@gmail.com</b>
@@ -122,12 +120,8 @@
             <h3 style="margin-bottom: 10px;">איך תרצו לנווט?</h3>
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">שער בנימין | מתחם עליון</p>
             <div class="nav-options">
-                <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze">
-                    <i class="fa-brands fa-waze"></i> Waze
-                </a>
-                <a href="https://www.google.com/maps/search/?api=1&query=נעלי+שני+שער+בנימין" target="_blank" class="nav-opt gmaps">
-                    <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                </a>
+                <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze"><i class="fa-brands fa-waze"></i> Waze</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=נעלי+שני+שער+בנימין" target="_blank" class="nav-opt gmaps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
             </div>
             <button class="close-nav" onclick="closeNavMenu()">ביטול</button>
         </div>
@@ -151,11 +145,10 @@
             <li><a onclick="filterCategory('boots')">מגפיים</a></li>
             <li><a onclick="filterCategory('slippers')">נעלי בית</a></li>
         </ul>
-
         <div class="opening-hours-sidebar">
             <h4><i class="fa-regular fa-clock"></i> שעות פתיחה</h4>
             <p><span>א' - ה':</span> <span>09:30 - 20:00</span></p>
-            <p><span>שישי וערבי חג:</span> <span id="fridayHoursDesc">09:30 - 14:00</span></p>
+            <p><span>שישי:</span> <span id="friHoursDesc">09:30 - 14:00</span></p>
             <p style="font-size: 0.7rem; opacity: 0.6; text-align: center;">(חורף עד 13:00 / קיץ עד 14:00)</p>
             <p><span>מוצ"ש:</span> <span>סגור</span></p>
         </div>
@@ -170,14 +163,9 @@
         <h1>נעלי שני</h1>
         <p>שער בנימין | איכות ונוחות לכל המשפחה</p>
         <div class="today-status" id="todayStatus">טוען שעות...</div>
-
         <div class="action-container">
-            <button onclick="openNavMenu()" class="action-btn btn-maps">
-                <i class="fa-solid fa-location-dot"></i> נווטו אלינו
-            </button>
-            <a href="https://wa.me/972503693788" target="_blank" class="action-btn btn-wa-main">
-                <i class="fa-brands fa-whatsapp"></i> שירות בוואטסאפ
-            </a>
+            <button onclick="openNavMenu()" class="action-btn btn-maps"><i class="fa-solid fa-location-dot"></i> נווטו אלינו</button>
+            <a href="https://wa.me/972503693788" target="_blank" class="action-btn btn-wa-main"><i class="fa-brands fa-whatsapp"></i> שירות בוואטסאפ</a>
         </div>
     </section>
 
@@ -204,22 +192,20 @@
         }
         function openNavMenu() { document.getElementById('navModal').style.display = 'flex'; }
         function closeNavMenu() { document.getElementById('navModal').style.display = 'none'; }
-        
         function toggleAccessibilityMenu() {
             const menu = document.getElementById('accMenu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
-
         function showAccessibilityStatement() {
             toggleAccessibilityMenu();
             document.getElementById('statementModal').style.display = 'block';
         }
 
-        // פונקציות נגישות
+        // נגישות
         function changeFontSize() { document.body.classList.toggle('large-text'); }
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
 
-        // חישוב שעות פתיחה
+        // שעות פתיחה
         function isSummerTime() {
             const now = new Date();
             const year = now.getFullYear();
@@ -233,9 +219,9 @@
         function updateOpeningHours() {
             const now = new Date();
             const day = now.getDay();
-            const statusBox = document.getElementById('todayStatus');
             const fridayClosing = isSummerTime() ? "14:00" : "13:00";
-
+            document.getElementById('friHoursDesc').innerText = `09:30 - ${fridayClosing}`;
+            const statusBox = document.getElementById('todayStatus');
             if (day === 5) statusBox.innerHTML = `פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
             else if (day === 6) statusBox.innerHTML = 'היום (מוצ"ש): סגור';
             else statusBox.innerHTML = 'פתוחים היום: 09:30 - 20:00';
@@ -245,22 +231,43 @@
         function renderProducts(productsToDisplay) {
             const grid = document.getElementById('productGrid');
             if (!grid) return;
-            
             if (!productsToDisplay || productsToDisplay.length === 0) {
                 grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px; font-size:1.2rem;">לא נמצאו תוצאות...</p>`;
                 return;
             }
 
-            grid.innerHTML = productsToDisplay.map(p => `
-                <div class="card" onclick="location.href='product.html?id=${p.id}'">
-                    ${p.onSale ? '<div class="sale-badge">מבצע!</div>' : ''}
-                    <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
-                    <div class="card-body">
-                        <h3>${p.name}</h3>
-                        <p>${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800;">${p.price}</span>` : `<span style="color:var(--gold); font-weight:800;">${p.price}</span>`}</p>
-                    </div>
-                </div>
-            `).join('');
+            grid.innerHTML = productsToDisplay.map(p => {
+                const initialImg = (p.colors && p.colors.length > 0) ? p.colors[0].img : p.img;
+                const colorHtml = (p.colors && p.colors.length > 1) ? `
+                    <div class="color-selector">
+                        ${p.colors.map((c, index) => `
+                            <div class="color-dot ${index === 0 ? 'active' : ''}" 
+                                 style="background-image: url('${c.img}')" 
+                                 onclick="event.stopPropagation(); changeCardImage(this, '${p.id}', '${c.img}')">
+                            </div>`).join('')}
+                    </div>` : '';
+                const sizeHtml = (p.sizes && p.sizes.length > 0) ? `<div class="size-preview">מידות: ${p.sizes.join(', ')}</div>` : '';
+
+                return `
+                    <div class="card" onclick="location.href='product.html?id=${p.id}'">
+                        ${p.onSale ? '<div class="sale-badge">מבצע!</div>' : ''}
+                        <img src="${initialImg}" id="img-${p.id}" onerror="this.src='images/placeholder.jpg'">
+                        <div class="card-body">
+                            <h3>${p.name}</h3>
+                            <p>${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800;">${p.price}</span>` : `<span style="color:var(--gold); font-weight:800;">${p.price}</span>`}</p>
+                            ${colorHtml}
+                            ${sizeHtml}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function changeCardImage(dotElement, productId, newImgSrc) {
+            const img = document.getElementById(`img-${productId}`);
+            if (img) img.src = newImgSrc;
+            const dots = dotElement.parentElement.querySelectorAll('.color-dot');
+            dots.forEach(d => d.classList.remove('active'));
+            dotElement.classList.add('active');
         }
 
         function handleSearch() {
@@ -278,7 +285,7 @@
                 Array.isArray(i.category) ? i.category.includes(cat) : i.category === cat
             );
             renderProducts(filtered);
-            toggleMenu();
+            if(document.getElementById('sidebar').classList.contains('open')) toggleMenu();
             window.scrollTo({top: 500, behavior: 'smooth'});
         }
 
