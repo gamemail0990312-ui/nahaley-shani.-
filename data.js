@@ -1,3 +1,4 @@
+// --- נתוני המוצרים (items) ---
 const items = [
     { 
         id: 1, 
@@ -84,7 +85,7 @@ const items = [
         onSale: false, 
         category: ["hiking", "adults"], 
         img: "images/1.jpg", 
-        sizes: [], 
+        sizes: [40, 41, 42, 43, 44], 
         desc: "נעלי הרים עמידות ומקצועיות לטיולים בכל תנאי שטח." 
     },
     { 
@@ -148,7 +149,7 @@ const items = [
         price: "₪240", 
         oldPrice: "₪280", 
         onSale: true, 
-        category: ["boots", "kids"], 
+        category: ["boots", "kids", "youth"], 
         img: "images/17.jpg", 
         sizes: [36,37,38,39,40], 
         desc: "מגפיים דמוי בלנסטון מעור חברות פאפאיה ופאמה, איכותיות ועמידות ." 
@@ -164,10 +165,35 @@ const items = [
         sizes: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], 
         desc: "נעלי שבת חגיגיות לבנות במחיר חיסול - עד גמר המלאי!" 
     }
-// --- נתונים וניהול גלובלי ---
+];
+
 window.items = items;
 
-// --- לוגיקת שעות פעילות וחגים ---
+// --- פונקציות תצוגה וניהול ---
+
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('active');
+}
+
+function showAccessibilityStatement() {
+    const accMenu = document.getElementById('accMenu');
+    if (accMenu) accMenu.style.display = 'none'; 
+    const statement = document.getElementById('statementModal');
+    if (statement) statement.style.display = 'flex';
+}
+
+function openNavMenu() {
+    const navModal = document.getElementById('navModal');
+    if (navModal) navModal.style.display = 'flex';
+}
+
+function closeNavMenu() {
+    const navModal = document.getElementById('navModal');
+    if (navModal) navModal.style.display = 'none';
+}
 
 function isSummerTime() {
     const now = new Date();
@@ -181,25 +207,16 @@ function isSummerTime() {
 
 function updateOpeningHours() {
     const now = new Date();
-    const day = now.getDay(); // 0=ראשון, 5=שישי, 6=שבת
-    const dateStr = `${now.getMonth() + 1}-${now.getDate()}`; // פורמט חודש-יום
+    const day = now.getDay();
+    const dateStr = `${now.getMonth() + 1}-${now.getDate()}`;
     
-    // רשימת ערבי חג (ניתן להוסיף תאריכים לפי הצורך)
-const holidayEves = [
-    '4-1',  // ערב פסח (י"ד בניסן) - הוספתי כי זה חסר לך!
-    '4-7',  // ערב שביעי של פסח
-    '5-21', // ערב שבועות
-    '9-11', // ערב ראש השנה (א' בתשרי תשפ"ז)
-    '9-20', // ערב יום כיפור
-    '9-25', // ערב סוכות
-    '10-2'  // ערב שמחת תורה / שמיני עצרת
-];
+    // ערבי חג 2026
+    const holidayEves = ['4-1', '4-7', '5-21', '9-11', '9-20', '9-25', '10-2']; 
     
     const fridayClosing = isSummerTime() ? "14:00" : "13:00";
     const holidayClosing = "13:30";
 
-    // עדכון הטקסט בתפריט הצדי
-    const friDesc = document.getElementById('friHours'); // שים לב שזה תואם ל-ID ב-HTML
+    const friDesc = document.getElementById('friHours'); 
     if (friDesc) friDesc.innerText = `09:30 - ${fridayClosing}`;
     
     const statusBox = document.getElementById('todayStatus');
@@ -216,126 +233,63 @@ const holidayEves = [
     }
 }
 
-// --- ניהול ממשק וניווט ---
-
-function toggleMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    if (sidebar) sidebar.classList.toggle('open');
-    if (overlay) overlay.classList.toggle('active');
-}
-
-function openNavMenu() {
-    const navModal = document.getElementById('navModal');
-    if (navModal) navModal.style.display = 'flex';
-}
-
-function closeNavMenu() {
-    const navModal = document.getElementById('navModal');
-    if (navModal) navModal.style.display = 'none';
-}
-
-function showAccessibilityStatement() {
-    const accMenu = document.getElementById('accMenu');
-    if (accMenu) accMenu.style.display = 'none'; 
-    const statement = document.getElementById('statementModal');
-    if (statement) statement.style.display = 'flex'; // שינוי ל-flex להתמרכזות
-}
-
-// --- לוגיקת רינדור וסינון מוצרים ---
-
+// לוגיקת רינדור מוצרים
 function renderProducts(list) {
     const grid = document.getElementById('productGrid');
     if (!grid) return;
-    
     if (!list || list.length === 0) {
-        grid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align:center; padding: 60px; opacity:0.6;">
-                <i class="fa-solid fa-magnifying-glass-minus" style="font-size:3rem; margin-bottom:15px;"></i>
-                <p>לא נמצאו דגמים תואמים לחיפוש שלך...</p>
-            </div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; opacity:0.6;">לא נמצאו תוצאות...</div>`;
         return;
     }
-
-    grid.innerHTML = list.map(p => {
-        // בדיקה אם יש מבצע או מחיר ישן
-        const priceHTML = p.oldPrice 
-            ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800; font-size:1.2rem;">${p.price}</span>` 
-            : `<span style="color:var(--gold); font-weight:800; font-size:1.2rem;">${p.price}</span>`;
-
-        return `
+    grid.innerHTML = list.map(p => `
         <div class="card" onclick="location.href='product.html?id=${p.id}'">
-            ${p.onSale ? '<div class="sale-badge">SALE!</div>' : ''}
-            <img src="${p.img}" onerror="this.src='images/placeholder.jpg'" alt="${p.name}">
+            ${p.onSale ? '<div class="sale-badge">במבצע!</div>' : ''}
+            <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
             <div class="card-body">
                 <h3>${p.name}</h3>
-                <p>${priceHTML}</p>
-                ${p.sizes && p.sizes.length > 0 ? `<div class="size-preview">מידות: ${p.sizes.join(', ')}</div>` : ''}
+                <p>${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800;">${p.price}</span>` : `<span style="color:var(--gold); font-weight:800;">${p.price}</span>`}</p>
             </div>
-        </div>`;
-    }).join('');
+        </div>`).join('');
 }
 
 function handleSearch() {
     const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    const filtered = items.filter(p => {
-        const nameMatch = p.name.toLowerCase().includes(q);
-        const categoryMatch = Array.isArray(p.category) 
-            ? p.category.some(c => c.toLowerCase().includes(q)) 
-            : p.category.toLowerCase().includes(q);
-        return nameMatch || categoryMatch;
-    });
+    const filtered = items.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        (Array.isArray(p.category) ? p.category.some(c => c.toLowerCase().includes(q)) : p.category.toLowerCase().includes(q))
+    );
     renderProducts(filtered);
 }
 
 function filterCategory(cat) {
-    const searchInput = document.getElementById('searchInput');
-    if(searchInput) searchInput.value = '';
-    
-    const filtered = cat === 'all' ? items : items.filter(i => {
-        if (Array.isArray(i.category)) {
-            return i.category.includes(cat);
-        }
-        return i.category === cat;
-    });
-    
+    if(document.getElementById('searchInput')) document.getElementById('searchInput').value = '';
+    const filtered = cat === 'all' ? items : items.filter(i => 
+        Array.isArray(i.category) ? i.category.includes(cat) : i.category === cat
+    );
     renderProducts(filtered);
-    
-    // גלילה חלקה לראש המוצרים
     window.scrollTo({ top: 450, behavior: 'smooth' });
-    
-    // סגירת תפריט בנייד
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar && sidebar.classList.contains('open')) toggleMenu();
+    if(document.getElementById('sidebar').classList.contains('open')) toggleMenu();
 }
-
-// --- מאזיני אירועים (Events) ---
 
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         closeNavMenu();
         const statement = document.getElementById('statementModal');
-        const accMenu = document.getElementById('accMenu');
         if (statement) statement.style.display = 'none';
-        if (accMenu) accMenu.style.display = 'none';
-        
         const sidebar = document.getElementById('sidebar');
         if (sidebar && sidebar.classList.contains('open')) toggleMenu();
     }
 });
 
-// אתחול ראשוני בטעינה
+// אתחול
 window.addEventListener('DOMContentLoaded', () => {
     updateOpeningHours();
-    if (window.items) renderProducts(window.items);
+    renderProducts(items);
 });
 
-// ייצוא פונקציות לחלון הגלובלי (כדי שה-HTML יוכל לקרוא להן)
+// ייצוא
 window.renderProducts = renderProducts;
 window.handleSearch = handleSearch;
 window.filterCategory = filterCategory;
 window.updateOpeningHours = updateOpeningHours;
 window.toggleMenu = toggleMenu;
-window.openNavMenu = openNavMenu;
-window.closeNavMenu = closeNavMenu;
-window.showAccessibilityStatement = showAccessibilityStatement;
