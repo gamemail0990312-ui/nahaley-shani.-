@@ -75,6 +75,7 @@
         .sidebar li a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; display: block; }
         .sidebar li a:hover { color: var(--gold); transform: translateX(-5px); }
 
+        /* Opening Hours in Sidebar */
         .opening-hours-sidebar { 
             margin-top: 40px; 
             padding: 20px; 
@@ -100,7 +101,7 @@
             text-align: center; 
             padding: 20px; 
         }
-        .hero h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero h1 { font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
         .today-status { 
             background: rgba(255,255,255,0.15); 
             backdrop-filter: blur(5px);
@@ -111,6 +112,7 @@
             border: 1px solid rgba(255,255,255,0.4); 
         }
         
+        /* Floating Buttons */
         .action-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 35px; }
         .action-btn { 
             display: flex; 
@@ -129,7 +131,7 @@
         .btn-wa-main { background: var(--whatsapp); color: white; }
         .action-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.3); }
 
-        /* Modals */
+        /* Navigation Modal */
         .nav-modal-overlay { 
             position: fixed; inset: 0; 
             background: rgba(0,0,0,0.8); 
@@ -156,7 +158,7 @@
         .nav-opt.waze { background: var(--waze); color: white; }
         .nav-opt.gmaps { background: #f0f0f0; color: var(--gmaps); border: 1px solid #ddd; }
 
-        /* Search */
+        /* Search Bar */
         .search-wrapper { max-width: 700px; margin: -40px auto 50px; position: relative; padding: 0 20px; z-index: 10; }
         .search-input { 
             width: 100%; padding: 22px 60px 22px 25px; 
@@ -166,7 +168,7 @@
         }
         .search-wrapper i { position: absolute; right: 45px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 1.4rem; }
 
-        /* Cards */
+        /* Products Grid & Cards */
         .container { max-width: 1300px; margin: 0 auto 60px; padding: 0 25px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
         .card { 
@@ -179,10 +181,11 @@
             border: 1px solid #eee;
         }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .card img { width: 100%; height: 300px; object-fit: cover; }
+        .card img { width: 100%; height: 300px; object-fit: cover; transition: 0.5s; }
         .card-body { padding: 20px; text-align: center; }
         .card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; }
         
+        /* Color Selector */
         .color-selector { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
         .color-dot { 
             width: 28px; height: 28px; border-radius: 50%; 
@@ -190,6 +193,7 @@
             background-size: cover; background-position: center; 
         }
         .color-dot.active { border-color: var(--gold); transform: scale(1.2); }
+        
         .size-preview { font-size: 0.9rem; color: #888; background: #f9f9f9; padding: 5px; border-radius: 5px; display: inline-block; }
 
         .sale-badge { 
@@ -201,7 +205,7 @@
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
         .old-price { text-decoration: line-through; color: #bbb; font-size: 1rem; margin-left: 8px; }
 
-        /* Accessibility */
+        /* Accessibility Toolbar */
         .accessibility-btn { 
             position: fixed; bottom: 25px; left: 25px; 
             background: #0044cc; color: white; 
@@ -228,9 +232,10 @@
 </head>
 <body>
 
-    <button class="accessibility-btn" onclick="toggleAccessibilityMenu()">
+    <button class="accessibility-btn" onclick="toggleAccessibilityMenu()" title="תפריט נגישות">
         <i class="fa-solid fa-universal-access"></i>
     </button>
+
     <div class="accessibility-menu" id="accMenu">
         <h3 style="margin-bottom:15px; text-align:center;">נגישות</h3>
         <button onclick="changeFontSize()">הגדלת טקסט <i class="fa-solid fa-plus"></i></button>
@@ -239,8 +244,8 @@
         <button onclick="toggleAccessibilityMenu()" style="color:red; border-color:red;">סגור X</button>
     </div>
 
-    <div id="statementModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:30000; align-items:center; justify-content:center; padding:20px;">
-        <div style="background:white; padding:40px; border-radius:25px; max-width:550px;">
+    <div id="statementModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:30000; display:none; align-items:center; justify-content:center; padding:20px;">
+        <div style="background:white; padding:40px; border-radius:25px; max-width:550px; position:relative;">
             <h2 style="color:var(--gold); margin-bottom:20px;">הצהרת נגישות - נעלי שני</h2>
             <p>אנו משקיעים מאמצים רבים להנגשת האתר לכלל האוכלוסייה. האתר עומד בתקן AA.</p>
             <p style="margin-top:15px;">נתקלתם בבעיה? דברו איתנו במייל: <b>gamemail0990312@gmail.com</b></p>
@@ -254,7 +259,7 @@
             <p style="margin-bottom:20px; opacity:0.7;">שער בנימין | מתחם עליון</p>
             <div class="nav-options">
                 <a href="https://waze.com/ul/hsv9j6353c" target="_blank" class="nav-opt waze"><i class="fa-brands fa-waze"></i> Waze</a>
-                <a href="https://maps.app.goo.gl/uXv7jS7U2nS8fU8r7" target="_blank" class="nav-opt gmaps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=נעלי+שני+שער+בנימין" target="_blank" class="nav-opt gmaps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
             </div>
             <button onclick="closeNavMenu()" style="background:none; border:none; cursor:pointer; font-weight:700; color:#888;">חזור</button>
         </div>
@@ -266,26 +271,30 @@
             <h3>תפריט</h3>
             <button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:1.8rem; cursor:pointer;">×</button>
         </div>
-        <ul>
-            <li><a onclick="filterCategory('all')"><b>כל הדגמים</b></a></li>
-            <li><a onclick="filterCategory('adults')"> מבוגרים</a></li>
-            <li><a onclick="filterCategory('kids')"> ילדים</a></li>
-            <hr style="opacity: 0.1; margin: 10px 0;">
-            <li><a onclick="filterCategory('sport')"> ספורט</a></li>
-            <li><a onclick="filterCategory('elegant')"> שבת ואלגנט</a></li>
-            <li><a onclick="filterCategory('hiking')">נעלי הרים</a></li>
-            <li><a onclick="filterCategory('boots')">מגפיים</a></li>
-            <hr style="opacity: 0.1; margin: 10px 0;">
-            <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
-            <li><a onclick="filterCategory('flipflops')">כפכפים</a></li>
-            <li><a onclick="filterCategory('slippers')">נעלי בית</a></li>
-        </ul>
-        <div class="opening-hours-sidebar">
-            <h4><i class="fa-regular fa-clock"></i> שעות פתיחה</h4>
-            <p><span>א' - ה':</span> <span>09:30 - 20:00</span></p>
-            <p><span>שישי:</span> <span id="friHours">09:30 - 14:00</span></p>
-            <p><span>מוצ"ש:</span> <span>סגור</span></p>
-        </div>
+       <ul>
+    <li><a onclick="filterCategory('all')"><b>כל הדגמים</b></a></li>
+    <li><a onclick="filterCategory('adults')"> מבוגרים</a></li>
+    <li><a onclick="filterCategory('kids')"> ילדים</a></li>
+    <hr style="opacity: 0.1; margin: 10px 0;">
+    <li><a onclick="filterCategory('sport')"> ספורט</a></li>
+    <li><a onclick="filterCategory('elegant')"> שבת ואלגנט</a></li>
+    <li><a onclick="filterCategory('hiking')">נעלי הרים</a></li>
+    <li><a onclick="filterCategory('boots')">מגפיים</a></li>
+    <hr style="opacity: 0.1; margin: 10px 0;">
+    <li><a onclick="filterCategory('sandals')">סנדלים</a></li>
+    <li><a onclick="filterCategory('flipflops')">כפכפים</a></li>
+    <li><a onclick="filterCategory('slippers')">נעלי בית</a></li>
+</ul>
+       <div class="opening-hours-sidebar">
+    <h4><i class="fa-regular fa-clock"></i> שעות פתיחה</h4>
+    <p><span>א' - ה':</span> <span>09:30 - 20:00</span></p>
+    <p><span>שישי:</span> <span id="friHours">09:30 - 14:00</span></p>
+    <p><span>ערבי חג:</span> <span>09:30 - 13:30</span></p>
+    <p><span>מוצ"ש:</span> <span>סגור</span></p>
+    <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.6; border-top: 1px solid #444; padding-top: 5px;">
+        * בערבי חג מומלץ להתעדכן טלפונית
+    </p>
+</div>
     </nav>
     
     <header>
@@ -318,25 +327,15 @@
         <p style="margin-top:30px; opacity:0.5; font-size:0.8rem;">כל הזכויות שמורות לש. אבנרי © 2026</p>
     </footer>
 
+    <script src="data.js"></script>
     <script>
-        // --- מסד נתונים פנימי ---
-        const items = [
-            { id: 1, name: "נעלי אלגנט גברים מעור", price: "₪300", oldPrice: "₪400", onSale: true, category: ["elegant", "adults"], img: "images/16.jpg", sizes: [40, 41, 42, 43, 44, 45, 46] },
-            { id: 2, name: "סנדלי שורש ילדים", price: "₪220", oldPrice: "₪250", onSale: true, category: ["sandals", "kids"], img: "images/12.jpg", sizes: [26, 27, 28, 29, 30, 31, 32] },
-            { id: 3, name: "סנדלי שורש מבוגרים", price: "₪320", oldPrice: "₪350", onSale: true, category: ["sandals", "adults"], img: "images/11.jpg", sizes: [36, 37, 40, 41, 44, 46, 48] },
-            { id: 4, name: "מגפי דמוי בלנדסטון - תינוקות", price: "₪190", oldPrice: "₪240", onSale: true, category: ["boots", "kids"], img: "images/17.jpg", sizes: [23, 24, 25, 26, 27] },
-            { id: 5, name: "נעלי שבת בנות כסופות", price: "₪50", oldPrice: "₪120", onSale: true, category: ["elegant", "kids"], img: "images/18.jpg", sizes: [22, 23, 24, 30, 35] },
-            { id: 6, name: "נעלי ספורט HOKA", price: "₪490", onSale: false, category: ["sport", "adults"], img: "images/13.jpg", sizes: [36, 37, 38, 40, 42, 44] },
-            { id: 7, name: "נעלי הרים מקצועיות", price: "₪380", onSale: false, category: ["hiking", "adults"], img: "images/1.jpg", sizes: [40, 41, 42, 43, 44] },
-            { id: 8, name: "סנדלי בנים מעור", price: "₪160", onSale: false, category: ["sandals", "kids"], img: "images/10.jpg", sizes: [25, 26, 30, 35, 40] }
-        ];
-
-        // --- ניהול תפריט ועיצוב ---
+        // Menu Toggle
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('overlay').classList.toggle('active');
         }
 
+        // Modals
         function openNavMenu() { document.getElementById('navModal').style.display = 'flex'; }
         function closeNavMenu() { document.getElementById('navModal').style.display = 'none'; }
         function toggleAccessibilityMenu() {
@@ -347,16 +346,18 @@
             document.getElementById('statementModal').style.display = 'flex';
             toggleAccessibilityMenu();
         }
+
+        // Accessibility Logic
         function changeFontSize() { document.body.classList.toggle('large-text'); }
         function toggleContrast() { document.body.classList.toggle('high-contrast'); }
 
-        // --- שעות פתיחה דינמיות ---
+        // Dynamic Hours Logic
         function isSummer() {
             const now = new Date();
             const year = now.getFullYear();
             const march31 = new Date(year, 2, 31);
-            const start = new Date(march31.setDate(31 - (march31.getDay() + 2) % 7));
             const oct31 = new Date(year, 9, 31);
+            const start = new Date(march31.setDate(31 - (march31.getDay() + 2) % 7));
             const end = new Date(oct31.setDate(31 - oct31.getDay()));
             return now >= start && now < end;
         }
@@ -373,34 +374,57 @@
             else status.innerText = `פתוחים היום: 09:30 - 20:00`;
         }
 
-        // --- מנוע רינדור מוצרים ---
+        // Rendering Engine
         function renderProducts(arr) {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
-            
             if(!arr || arr.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:100px; opacity:0.5;">לא נמצאו תוצאות...</div>`;
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:100px;">
+                    <i class="fa-solid fa-shoe-prints" style="font-size:3rem; color:#ddd;"></i>
+                    <p style="margin-top:20px; font-size:1.2rem; color:#888;">לא מצאנו בדיוק את מה שחיפשת... נסה מונח אחר!</p>
+                </div>`;
                 return;
             }
 
-            grid.innerHTML = arr.map(p => `
-                <div class="card" onclick="location.href='product.html?id=${p.id}'">
-                    ${p.onSale ? '<div class="sale-badge">במבצע!</div>' : ''}
-                    <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
-                    <div class="card-body">
-                        <h3>${p.name}</h3>
-                        <p style="margin-bottom:10px;">
-                            ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}
-                            <span style="color:var(--gold); font-size:1.4rem; font-weight:800;">${p.price}</span>
-                        </p>
-                        ${p.sizes ? `<div class="size-preview">מידות: ${p.sizes.join(', ')}</div>` : ''}
+            grid.innerHTML = arr.map(p => {
+                const initialImg = (p.colors && p.colors.length > 0) ? p.colors[0].img : p.img;
+                const colors = (p.colors && p.colors.length > 1) ? `
+                    <div class="color-selector">
+                        ${p.colors.map((c, i) => `
+                            <div class="color-dot ${i===0?'active':''}" 
+                                 style="background-image: url('${c.img}')"
+                                 onclick="event.stopPropagation(); changeImg(this, '${p.id}', '${c.img}')">
+                            </div>
+                        `).join('')}
+                    </div>` : '';
+
+                return `
+                    <div class="card" onclick="location.href='product.html?id=${p.id}'">
+                        ${p.onSale ? '<div class="sale-badge">SALE!</div>' : ''}
+                        <img src="${initialImg}" id="img-${p.id}" onerror="this.src='images/placeholder.jpg'">
+                        <div class="card-body">
+                            <h3>${p.name}</h3>
+                            <p style="margin-bottom:10px;">
+                                ${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span>` : ''}
+                                <span style="color:var(--gold); font-size:1.4rem; font-weight:800;">${p.price}</span>
+                            </p>
+                            ${colors}
+                            ${p.sizes && p.sizes.length > 0 ? `<div class="size-preview">מידות: ${p.sizes.join(', ')}</div>` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+        }
+
+        function changeImg(dot, pid, src) {
+            document.getElementById(`img-${pid}`).src = src;
+            const dots = dot.parentElement.querySelectorAll('.color-dot');
+            dots.forEach(d => d.classList.remove('active'));
+            dot.classList.add('active');
         }
 
         function handleSearch() {
-            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const q = document.getElementById('searchInput').value.toLowerCase();
             const filtered = items.filter(p => 
                 p.name.toLowerCase().includes(q) || 
                 p.category.some(c => c.toLowerCase().includes(q))
@@ -417,7 +441,7 @@
         }
 
         window.onload = () => {
-            renderProducts(items);
+            if(typeof items !== 'undefined') renderProducts(items);
             updateHours();
         };
     </script>
