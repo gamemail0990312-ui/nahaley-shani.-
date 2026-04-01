@@ -68,7 +68,7 @@ const items = [
     { 
         id: 7, 
         name: "נעלי ספורט HOKA", 
-        price: "₪490החל מ-", 
+        price: "₪490 החל מ-", 
         oldPrice: "", 
         onSale: false, 
         category: ["sport", "adults"], 
@@ -79,7 +79,7 @@ const items = [
     { 
         id: 8, 
         name: "נעלי הרים מקצועיות", 
-        price: "₪380החל מ-", 
+        price: "₪380 החל מ-", 
         oldPrice: "", 
         onSale: false, 
         category: ["hiking", "adults"], 
@@ -133,14 +133,14 @@ const items = [
     },
     { 
         id: 13, 
-        name: "כפכפי", 
+        name: "כפכפי אצבע", 
         price: "₪35", 
         oldPrice: "", 
         onSale: false, 
         category: ["flipflops"], 
         img: "images/19.jpg", 
         sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], 
-        desc: "כפכים לבית לחופשה בנוחות מקסימלית" 
+        desc: "כפכפים לבית ולחופשה בנוחות מקסימלית." 
     },
     { 
         id: 14, 
@@ -164,7 +164,8 @@ const items = [
         sizes: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], 
         desc: "נעלי שבת חגיגיות לבנות במחיר חיסול - עד גמר המלאי!" 
     }
-// הגדרת המוצרים מהקובץ החיצוני
+]; // הסגירה החסרה הייתה כאן!
+
 window.items = items;
 
 // --- פונקציות תצוגה וניהול ---
@@ -176,16 +177,13 @@ function toggleMenu() {
     if (overlay) overlay.classList.toggle('active');
 }
 
-// פתיחת הצהרת הנגישות מתוך התפריט
 function showAccessibilityStatement() {
     const accMenu = document.getElementById('accMenu');
     if (accMenu) accMenu.style.display = 'none'; 
-    
     const statement = document.getElementById('statementModal');
     if (statement) statement.style.display = 'block';
 }
 
-// פונקציות הניווט (Waze / Google Maps)
 function openNavMenu() {
     const navModal = document.getElementById('navModal');
     if (navModal) navModal.style.display = 'flex';
@@ -196,12 +194,10 @@ function closeNavMenu() {
     if (navModal) navModal.style.display = 'none';
 }
 
-// פונקציית עזר להדגשת קישורים (חדש מתפריט הנגישות)
 function toggleLinks() {
     document.body.classList.toggle('underline-links');
 }
 
-// שעות פתיחה דינמיות
 function isSummerTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -216,10 +212,8 @@ function updateOpeningHours() {
     const now = new Date();
     const day = now.getDay();
     const fridayClosing = isSummerTime() ? "14:00" : "13:00";
-    
     const friDesc = document.getElementById('friHoursDesc');
     if (friDesc) friDesc.innerText = `09:30 - ${fridayClosing}`;
-    
     const statusBox = document.getElementById('todayStatus');
     if (statusBox) {
         if (day === 5) statusBox.innerHTML = `פתוחים היום (ו'): 09:30 - ${fridayClosing}`;
@@ -228,7 +222,44 @@ function updateOpeningHours() {
     }
 }
 
-// מאזין גלובלי למקלדת - סגירת הכל בלחיצה על Escape
+// לוגיקת רינדור מוצרים
+function renderProducts(list) {
+    const grid = document.getElementById('productGrid');
+    if (!grid) return;
+    if (!list || list.length === 0) {
+        grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 40px;">לא נמצאו תוצאות...</p>`;
+        return;
+    }
+    grid.innerHTML = list.map(p => `
+        <div class="card" onclick="location.href='product.html?id=${p.id}'">
+            ${p.onSale ? '<div class="sale-badge">מבצע!</div>' : ''}
+            <img src="${p.img}" onerror="this.src='images/placeholder.jpg'">
+            <div class="card-body">
+                <h3>${p.name}</h3>
+                <p>${p.oldPrice ? `<span class="old-price">${p.oldPrice}</span> <span style="color:red; font-weight:800;">${p.price}</span>` : `<span style="color:var(--gold); font-weight:800;">${p.price}</span>`}</p>
+                ${p.sizes && p.sizes.length > 0 ? `<div class="size-preview">מידות: ${p.sizes.join(', ')}</div>` : ''}
+            </div>
+        </div>`).join('');
+}
+
+function handleSearch() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = items.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        (Array.isArray(p.category) ? p.category.some(c => c.toLowerCase().includes(q)) : p.category.toLowerCase().includes(q))
+    );
+    renderProducts(filtered);
+}
+
+function filterCategory(cat) {
+    if(document.getElementById('searchInput')) document.getElementById('searchInput').value = '';
+    const filtered = cat === 'all' ? items : items.filter(i => 
+        Array.isArray(i.category) ? i.category.includes(cat) : i.category === cat
+    );
+    renderProducts(filtered);
+    if(document.getElementById('sidebar')) toggleMenu();
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape") {
         closeNavMenu();
@@ -236,7 +267,6 @@ document.addEventListener('keydown', function(event) {
         const accMenu = document.getElementById('accMenu');
         if (statement) statement.style.display = 'none';
         if (accMenu) accMenu.style.display = 'none';
-        
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         if (sidebar && sidebar.classList.contains('open')) {
@@ -246,8 +276,8 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-// וודא שפונקציות הליבה זמינות גלובלית
+// ייצוא פונקציות לחלון הגלובלי
+window.renderProducts = renderProducts;
+window.handleSearch = handleSearch;
+window.filterCategory = filterCategory;
 window.updateOpeningHours = updateOpeningHours;
-window.toggleMenu = toggleMenu;
-window.openNavMenu = openNavMenu;
-window.closeNavMenu = closeNavMenu;
