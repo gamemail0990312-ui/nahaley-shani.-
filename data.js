@@ -163,6 +163,17 @@ const items = [
         img: "images/20.jpg", 
         sizes: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35], 
         desc: "נעלי שבת חגיגיות לבנות במחיר חיסול - עד גמר המלאי!" 
+    },
+    { 
+        id: 16, 
+        name: "נעלי בובה לנשים", 
+        price: "₪250", 
+        oldPrice: "", 
+        onSale: false, 
+        category: ["elegant", "adults"], 
+        img: "images/20.jpg", 
+        sizes: [], 
+        desc: "נעלי בובה לנשים קיים בעשר צבעים הכל מעור" 
     }
 ];
 
