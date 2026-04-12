@@ -171,7 +171,7 @@ const items = [
         oldPrice: "", 
         onSale: false, 
         category: ["elegant", "adults"], 
-        img: "images/20.jpg", 
+        img: "images/21.jpg", 
         sizes: [], 
         desc: "נעלי בובה לנשים קיים בעשר צבעים הכל מעור" 
     }
