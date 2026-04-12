@@ -126,7 +126,7 @@ const items = [
         price: "₪280", 
         oldPrice: "", 
         onSale: false, 
-        category: ["sport", "adults"], 
+        category: ["sport", "kids"], 
         img: "images/9.jpg", 
         sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46], 
         desc: "נעלי ספורט של Reelife ברמה בינלאומית במחיר מצוין." 
