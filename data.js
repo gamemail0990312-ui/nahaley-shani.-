@@ -174,8 +174,31 @@ const items = [
         img: "images/21.jpg", 
         sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44], 
         desc: "נעלי בובה לנשים קיים בעשר צבעים הכל מעור" 
+    }'
+    { 
+        id: 17, 
+        name: "נעלי ספורט adidas לילדים", 
+        price: "₪230", 
+        oldPrice: "", 
+        onSale: false, 
+        category: ["sport", "kids"], 
+        img: "images/22.jpg", 
+        sizes: [28,29,30,31,32,33,34,35,36,37,38,39,40], 
+        desc: "נעלי ספורט איכותיים במיוחד מתאימים לריצה והליכה" 
+    },
+    { 
+        id: 18, 
+        name: "נעלי כדורגל לילדים", 
+        price: "₪230", 
+        oldPrice: "", 
+        onSale: false, 
+        category: ["sport", "kids"], 
+        img: "images/23.jpg", 
+        sizes: [28,29,30,31,32,33,34,35,36,37,38,39,40], 
+        desc: "נעלי כדורגל נוחים ויפים" 
     }
 ];
+
 
 // הגדרת המוצרים מהקובץ החיצוני
 window.items = items;
